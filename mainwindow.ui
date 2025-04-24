@@ -18,13 +18,13 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
+      <y>10</y>
       <width>811</width>
       <height>531</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="aa">
      <widget class="QLineEdit" name="lineEditID">
@@ -119,10 +119,10 @@
      <widget class="QWidget" name="verticalLayoutWidget">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>20</x>
         <y>30</y>
-        <width>741</width>
-        <height>41</height>
+        <width>731</width>
+        <height>51</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -166,7 +166,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="lineEdit_2"/>
+        <widget class="QLineEdit" name="lineEditSurname"/>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_7">
@@ -176,7 +176,7 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLineEdit" name="lineEdit_4"/>
+        <widget class="QLineEdit" name="lineEditMI"/>
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="label_5">
@@ -186,7 +186,7 @@
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QLineEdit" name="lineEdit_3"/>
+        <widget class="QLineEdit" name="lineEditFirst"/>
        </item>
        <item row="3" column="0">
         <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -287,30 +287,10 @@
         <x>560</x>
         <y>80</y>
         <width>241</width>
-        <height>135</height>
+        <height>206</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="formLayout_4">
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_12">
-         <property name="text">
-          <string>Religion:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLineEdit" name="lineEdit_5"/>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_13">
-         <property name="text">
-          <string>Nationality:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QLineEdit" name="lineEdit_6"/>
-       </item>
        <item row="0" column="0">
         <widget class="QLabel" name="label_15">
          <property name="text">
@@ -319,7 +299,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="lineEdit_7"/>
+        <widget class="QLineEdit" name="lineEditbirth"/>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_16">
@@ -329,7 +309,37 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLineEdit" name="lineEdit_8"/>
+        <widget class="QLineEdit" name="lineEditContact"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_12">
+         <property name="text">
+          <string>Religion:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="lineEditReligion"/>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_13">
+         <property name="text">
+          <string>Nationality:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="lineEditNation"/>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_18">
+         <property name="text">
+          <string>Patient ID:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="lineEditID2"/>
        </item>
       </layout>
      </widget>
@@ -381,6 +391,32 @@
       </property>
       <property name="text">
        <string>Submit</string>
+      </property>
+     </widget>
+     <widget class="QCommandLinkButton" name="commandLinkButton">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>0</y>
+        <width>71</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Back</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="list">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>0</y>
+        <width>83</width>
+        <height>29</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>List</string>
       </property>
      </widget>
     </widget>
@@ -455,7 +491,7 @@
         <x>30</x>
         <y>60</y>
         <width>537</width>
-        <height>178</height>
+        <height>205</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="formLayout_7">
@@ -588,7 +624,7 @@
         <x>570</x>
         <y>60</y>
         <width>221</width>
-        <height>162</height>
+        <height>170</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="formLayout_8">
@@ -632,10 +668,20 @@
          </property>
         </widget>
        </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_17">
+         <property name="text">
+          <string>Patient ID:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="lineEdit"/>
+       </item>
       </layout>
      </widget>
     </widget>
-    <widget class="QWidget" name="page">
+    <widget class="QWidget" name="listpage">
      <widget class="QWidget" name="gridLayoutWidget">
       <property name="geometry">
        <rect>
@@ -686,66 +732,6 @@
         <height>371</height>
        </rect>
       </property>
-      <row>
-       <property name="text">
-        <string>New Row</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>New Row</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>New Row</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>New Row</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>New Row</string>
-       </property>
-      </row>
-      <column>
-       <property name="text">
-        <string>New Column</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>New Column</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>New Column</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>New Column</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>New Column</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>New Column</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>New Column</string>
-       </property>
-      </column>
      </widget>
     </widget>
    </widget>
