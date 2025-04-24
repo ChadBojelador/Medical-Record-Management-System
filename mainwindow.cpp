@@ -16,7 +16,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButtonLogin_clicked()
 {
     if (ui->radioAdmin->isChecked()){
-        Qstring enteredID = ui->lineEditID->text();
+        QString enteredID = ui->lineEditID->text();
 
         if (enteredID =="admin123"){
             ui->stackedWidget->setCurrentIndex(2);
@@ -28,7 +28,7 @@ void MainWindow::on_pushButtonLogin_clicked()
     }
 
     else if (ui->radioPatient->isChecked()){
-        Qstring enteredID = ui->lineEditID->text();
+        QString enteredID = ui->lineEditID->text();
 
         if(enteredID == "PT-108863"){
             ui->stackedWidget->setCurrentIndex(3);

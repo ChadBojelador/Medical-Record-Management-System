@@ -27,7 +27,7 @@
      <number>0</number>
     </property>
     <widget class="QWidget" name="aa">
-     <widget class="QLineEdit" name="lineEdit">
+     <widget class="QLineEdit" name="lineEditID">
       <property name="geometry">
        <rect>
         <x>320</x>
@@ -37,7 +37,7 @@
        </rect>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="pushButtonLogin">
       <property name="geometry">
        <rect>
         <x>340</x>
@@ -82,7 +82,7 @@
        <string>ID:</string>
       </property>
      </widget>
-     <widget class="QRadioButton" name="radioButton">
+     <widget class="QRadioButton" name="radioAdmin">
       <property name="geometry">
        <rect>
         <x>290</x>
@@ -98,7 +98,7 @@
        <string notr="true">buttonGroup</string>
       </attribute>
      </widget>
-     <widget class="QRadioButton" name="radioButton_2">
+     <widget class="QRadioButton" name="radioPatient">
       <property name="geometry">
        <rect>
         <x>410</x>
