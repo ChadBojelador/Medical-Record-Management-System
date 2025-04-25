@@ -1185,6 +1185,19 @@
        <string notr="true">buttonGroup_2</string>
       </attribute>
      </widget>
+     <widget class="QPushButton" name="exit1">
+      <property name="geometry">
+       <rect>
+        <x>1250</x>
+        <y>670</y>
+        <width>61</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Exit</string>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>

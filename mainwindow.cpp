@@ -106,3 +106,11 @@ void MainWindow::on_addpatient_clicked()
 
 
 
+
+
+
+void MainWindow::on_exit1_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
+}
+
