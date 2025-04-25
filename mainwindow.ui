@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>807</width>
-    <height>531</height>
+    <width>1411</width>
+    <height>758</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,13 +18,13 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>10</y>
-      <width>811</width>
-      <height>531</height>
+      <y>0</y>
+      <width>1920</width>
+      <height>741</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="aa">
      <widget class="QLineEdit" name="lineEditID">
@@ -119,9 +119,9 @@
      <widget class="QWidget" name="verticalLayoutWidget">
       <property name="geometry">
        <rect>
-        <x>20</x>
+        <x>30</x>
         <y>30</y>
-        <width>731</width>
+        <width>1281</width>
         <height>51</height>
        </rect>
       </property>
@@ -139,22 +139,15 @@
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="Line" name="line">
-         <property name="orientation">
-          <enum>Qt::Orientation::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="formLayoutWidget">
       <property name="geometry">
        <rect>
-        <x>20</x>
+        <x>30</x>
         <y>80</y>
-        <width>537</width>
-        <height>178</height>
+        <width>661</width>
+        <height>181</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="formLayout">
@@ -223,7 +216,43 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="comboBox"/>
+          <widget class="QComboBox" name="suffix">
+           <item>
+            <property name="text">
+             <string>Jr.</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Sr.</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>I</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>II</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>III</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>IV</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>V</string>
+            </property>
+           </item>
+          </widget>
          </item>
          <item>
           <widget class="QLabel" name="label_6">
@@ -233,7 +262,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="comboBox_2"/>
+          <widget class="QSpinBox" name="age"/>
          </item>
         </layout>
        </item>
@@ -265,7 +294,48 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="comboBox_3"/>
+          <widget class="QComboBox" name="comboBox_3">
+           <item>
+            <property name="text">
+             <string>A+</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>A-</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>B+</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>B-</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>AB+</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>AB-</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>O+</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>O-</string>
+            </property>
+           </item>
+          </widget>
          </item>
          <item>
           <widget class="QLabel" name="label_14">
@@ -275,7 +345,48 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="comboBox_4"/>
+          <widget class="QComboBox" name="comboBox_4">
+           <item>
+            <property name="text">
+             <string>Single</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Married</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Widowed</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Divorced</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Separated</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Annulled</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Legally Separated</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Domestic Partner</string>
+            </property>
+           </item>
+          </widget>
          </item>
         </layout>
        </item>
@@ -284,10 +395,10 @@
      <widget class="QWidget" name="formLayoutWidget_2">
       <property name="geometry">
        <rect>
-        <x>560</x>
-        <y>80</y>
-        <width>241</width>
-        <height>206</height>
+        <x>30</x>
+        <y>270</y>
+        <width>661</width>
+        <height>197</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="formLayout_4">
@@ -346,10 +457,10 @@
      <widget class="QTabWidget" name="tabWidget">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>260</y>
-        <width>731</width>
-        <height>231</height>
+        <x>20</x>
+        <y>450</y>
+        <width>661</width>
+        <height>251</height>
        </rect>
       </property>
       <property name="maximumSize">
@@ -375,11 +486,259 @@
        </attribute>
       </widget>
      </widget>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="Line" name="line_2">
       <property name="geometry">
        <rect>
         <x>690</x>
-        <y>250</y>
+        <y>80</y>
+        <width>16</width>
+        <height>621</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Orientation::Vertical</enum>
+      </property>
+     </widget>
+     <widget class="Line" name="line_4">
+      <property name="geometry">
+       <rect>
+        <x>700</x>
+        <y>640</y>
+        <width>701</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Orientation::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox">
+      <property name="geometry">
+       <rect>
+        <x>740</x>
+        <y>610</y>
+        <width>471</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Patient consents to the treatment.</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_19">
+      <property name="geometry">
+       <rect>
+        <x>710</x>
+        <y>490</y>
+        <width>681</width>
+        <height>111</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Consent for Treatment&lt;/span&gt;&lt;/p&gt;&lt;p&gt;By checking this box, the patient acknowledges they have been informed of the nature of the proposed medical treatment, including any potential risks, benefits, and available alternatives. The patient consents to the treatment as recommended by the healthcare provider.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="scaledContents">
+       <bool>false</bool>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_20">
+      <property name="geometry">
+       <rect>
+        <x>710</x>
+        <y>310</y>
+        <width>671</width>
+        <height>161</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Data Privacy Consent&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The patient has been informed about the collection, processing, and storage of their personal and health data in accordance with applicable data privacy laws. The patient understands their rights regarding their data, including access, correction, and withdrawal of consent. The patient has consented to the use of their data for healthcare purposes and acknowledges the privacy measures in place to protect their information.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_2">
+      <property name="geometry">
+       <rect>
+        <x>740</x>
+        <y>460</y>
+        <width>431</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Patient  consent to data privacy confirmed.</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_21">
+      <property name="geometry">
+       <rect>
+        <x>960</x>
+        <y>80</y>
+        <width>291</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>17</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>ADMISSION</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="gridLayoutWidget_2">
+      <property name="geometry">
+       <rect>
+        <x>710</x>
+        <y>120</y>
+        <width>681</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="2">
+        <widget class="QLabel" name="label_23">
+         <property name="font">
+          <font>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>TIME ADMITTED:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="5">
+        <widget class="QLineEdit" name="lineEdit_4"/>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="lineEdit_2"/>
+       </item>
+       <item row="0" column="6">
+        <layout class="QHBoxLayout" name="horizontalLayout_18"/>
+       </item>
+       <item row="0" column="3">
+        <widget class="QLineEdit" name="lineEdit_3"/>
+       </item>
+       <item row="0" column="4">
+        <widget class="QLabel" name="label_24">
+         <property name="font">
+          <font>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>LEVEL OF CARE: </string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_16">
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <item>
+            <widget class="QLabel" name="label_22">
+             <property name="font">
+              <font>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>ROOM:</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QLabel" name="label_25">
+      <property name="geometry">
+       <rect>
+        <x>970</x>
+        <y>240</y>
+        <width>141</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>DATE ADMITTED</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_5">
+      <property name="geometry">
+       <rect>
+        <x>950</x>
+        <y>210</y>
+        <width>171</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_26">
+      <property name="geometry">
+       <rect>
+        <x>980</x>
+        <y>300</y>
+        <width>141</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>ADMIN NAME</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_6">
+      <property name="geometry">
+       <rect>
+        <x>950</x>
+        <y>270</y>
+        <width>171</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="Line" name="line_5">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>690</y>
+        <width>1381</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Orientation::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="geometry">
+       <rect>
+        <x>1090</x>
+        <y>660</y>
         <width>83</width>
         <height>29</height>
        </rect>
@@ -393,30 +752,56 @@
        <string>Submit</string>
       </property>
      </widget>
-     <widget class="QCommandLinkButton" name="commandLinkButton">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>0</y>
-        <width>71</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Back</string>
-      </property>
-     </widget>
      <widget class="QPushButton" name="list">
       <property name="geometry">
        <rect>
-        <x>100</x>
-        <y>0</y>
+        <x>1180</x>
+        <y>660</y>
         <width>83</width>
         <height>29</height>
        </rect>
       </property>
       <property name="text">
        <string>List</string>
+      </property>
+     </widget>
+     <widget class="Line" name="line_6">
+      <property name="geometry">
+       <rect>
+        <x>1390</x>
+        <y>30</y>
+        <width>20</width>
+        <height>671</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Orientation::Vertical</enum>
+      </property>
+     </widget>
+     <widget class="Line" name="line_7">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>1381</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Orientation::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="Line" name="line_8">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>20</width>
+        <height>661</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Orientation::Vertical</enum>
       </property>
      </widget>
     </widget>
@@ -692,6 +1077,9 @@
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="4">
+        <layout class="QHBoxLayout" name="horizontalLayout_6"/>
+       </item>
        <item row="0" column="2">
         <layout class="QVBoxLayout" name="verticalLayout_9">
          <item>
@@ -701,7 +1089,7 @@
              <item>
               <widget class="QPushButton" name="pushButton_3">
                <property name="text">
-                <string>search</string>
+                <string>Search</string>
                </property>
               </widget>
              </item>
@@ -720,6 +1108,13 @@
        </item>
        <item row="0" column="1">
         <widget class="QLineEdit" name="lineEdit_23"/>
+       </item>
+       <item row="0" column="3">
+        <widget class="QPushButton" name="addpatient">
+         <property name="text">
+          <string>Add Patient</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

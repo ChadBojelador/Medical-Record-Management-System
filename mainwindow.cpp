@@ -2,15 +2,16 @@
 #include "ui_mainwindow.h"
 #include <QMessageBox>
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->stackedWidget->setCurrentIndex(4);
+    ui->stackedWidget->setCurrentIndex(0);
     ui->tableWidget->setColumnCount(2);
     QStringList headers;
-    headers << "Name" << "ID";
+    headers << "Name" << "ID" ;
     ui->tableWidget->setHorizontalHeaderLabels(headers);
      ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 }
@@ -94,6 +95,14 @@ void MainWindow::on_pushButton_2_clicked()
 
 void MainWindow::on_list_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(4);
+    ui->stackedWidget->setCurrentIndex(3);
 }
+
+
+void MainWindow::on_addpatient_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
+}
+
+
 

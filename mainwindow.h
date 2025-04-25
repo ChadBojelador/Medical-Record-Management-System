@@ -26,6 +26,10 @@ private slots:
 
     void on_list_clicked();
 
+    void on_addpatient_clicked();
+
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
