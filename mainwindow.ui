@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="aa">
      <widget class="QLineEdit" name="lineEditID">
@@ -645,16 +645,16 @@
         </widget>
        </item>
        <item row="0" column="5">
-        <widget class="QLineEdit" name="lineEdit_4"/>
+        <widget class="QLineEdit" name="lineEditLevel"/>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="lineEdit_2"/>
+        <widget class="QLineEdit" name="lineEditRoom"/>
        </item>
        <item row="0" column="6">
         <layout class="QHBoxLayout" name="horizontalLayout_18"/>
        </item>
        <item row="0" column="3">
-        <widget class="QLineEdit" name="lineEdit_3"/>
+        <widget class="QLineEdit" name="lineEditTime1"/>
        </item>
        <item row="0" column="4">
         <widget class="QLabel" name="label_24">
@@ -708,7 +708,7 @@
        <string>DATE ADMITTED</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_5">
+     <widget class="QLineEdit" name="lineEditDate">
       <property name="geometry">
        <rect>
         <x>960</x>
@@ -736,7 +736,7 @@
        <string>ADMIN NAME</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_6">
+     <widget class="QLineEdit" name="lineEditAdmin">
       <property name="geometry">
        <rect>
         <x>960</x>
@@ -1185,7 +1185,7 @@
        <string notr="true">buttonGroup_2</string>
       </attribute>
      </widget>
-     <widget class="QPushButton" name="exit1">
+     <widget class="QPushButton" name="pushbuttonEXIT">
       <property name="geometry">
        <rect>
         <x>1250</x>

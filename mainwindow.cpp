@@ -69,27 +69,54 @@ void MainWindow::on_pushButton_2_clicked()
     QString surname = ui->lineEditSurname->text();
     QString firstName = ui->lineEditFirst->text();
     QString middleName = ui->lineEditMI->text();
+    QString birth = ui->lineEditbirth->text();
+    QString religion = ui->lineEditReligion->text();
+    QString nation = ui->lineEditNation->text();
+    QString room = ui->lineEditRoom->text();
+    QString time1 = ui->lineEditTime1->text();
+    QString level = ui->lineEditLevel->text();
+    QString date = ui->lineEditDate->text();
+    QString admin = ui->lineEditAdmin->text();
+
+
 
     QString fullName = surname + ", " + firstName + " " + middleName;
 
     QString id = ui->lineEditID2->text();
 
-    if (surname.isEmpty() || firstName.isEmpty() || id.isEmpty()) {
+    if (surname.isEmpty() || firstName.isEmpty() || id.isEmpty()birth.isEmpty() || religion.isEmpty() || nation.isEmpty()
+        room.isEmpty() || time1.isEmpty() || level.isEmpty()date.isEmpty() || admin.isEmpty()) {
         QMessageBox::warning(this, "Input Error", "Please fill in all fields.");
         return;
     }
+
     int row = ui->tableWidget->rowCount();
     ui->tableWidget->insertRow(row);
 
 
     ui->tableWidget->setItem(row, 0, new QTableWidgetItem(fullName));
     ui->tableWidget->setItem(row, 1, new QTableWidgetItem(id));
-
+    ui->tableWidget->setItem(row, 2, new QTableWidgetItem(room));
+    ui->tableWidget->setItem(row, 3, new QTableWidgetItem(time1));
+    ui->tableWidget->setItem(row, 4, new QTableWidgetItem(level));
+    ui->tableWidget->setItem(row, 5, new QTableWidgetItem(date));
+    ui->tableWidget->setItem(row, 6, new QTableWidgetItem(admin));
+    ui->tableWidget->setItem(row, 7, new QTableWidgetItem(birth));
+    ui->tableWidget->setItem(row, 8, new QTableWidgetItem(nation));
+    ui->tableWidget->setItem(row, 9, new QTableWidgetItem(religion));
 
     ui->lineEditSurname->clear();
     ui->lineEditFirst->clear();
     ui->lineEditMI->clear();
     ui->lineEditID2->clear();
+    ui->lineEditbirth->clear();
+    ui->lineEditReligion->clear();
+    ui->lineEditNation->clear();
+    ui->lineEditRoom->clear();
+    ui->lineEditTime1->clear();
+    ui->lineEditLevel->clear();
+    ui->lineEditDate->clear();
+    ui->lineEditAdmin->clear();
 }
 
 
