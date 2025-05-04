@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="aa">
      <widget class="QLineEdit" name="lineEditID">
@@ -216,14 +216,14 @@
           </widget>
          </item>
          <item>
-          <widget class="QRadioButton" name="radioButton_4">
+          <widget class="QRadioButton" name="radioMale">
            <property name="text">
             <string>M</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QRadioButton" name="radioButton_3">
+          <widget class="QRadioButton" name="radioFemale">
            <property name="text">
             <string>F</string>
            </property>
@@ -242,6 +242,11 @@
          </item>
          <item>
           <widget class="QComboBox" name="suffix">
+           <item>
+            <property name="text">
+             <string>N/A</string>
+            </property>
+           </item>
            <item>
             <property name="text">
              <string>Jr.</string>
@@ -319,7 +324,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="comboBox_3">
+          <widget class="QComboBox" name="bloodType">
            <item>
             <property name="text">
              <string>A+</string>
@@ -370,7 +375,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="comboBox_4">
+          <widget class="QComboBox" name="civilStatus">
            <item>
             <property name="text">
              <string>Single</string>
@@ -537,7 +542,7 @@
        <enum>Qt::Orientation::Horizontal</enum>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBox">
+     <widget class="QCheckBox" name="consent1">
       <property name="geometry">
        <rect>
         <x>740</x>
@@ -590,7 +595,7 @@
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBox_2">
+     <widget class="QCheckBox" name="consent2">
       <property name="geometry">
        <rect>
         <x>740</x>
@@ -1112,7 +1117,7 @@
            <item>
             <layout class="QVBoxLayout" name="verticalLayout_10">
              <item>
-              <widget class="QPushButton" name="pushButton_3">
+              <widget class="QPushButton" name="searchTable">
                <property name="text">
                 <string>Search</string>
                </property>
@@ -1139,7 +1144,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="lineEdit_23"/>
+        <widget class="QLineEdit" name="searchNameorID"/>
        </item>
       </layout>
      </widget>
@@ -1152,6 +1157,21 @@
         <height>531</height>
        </rect>
       </property>
+      <column>
+       <property name="text">
+        <string>Patient ID</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Name</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Age</string>
+       </property>
+      </column>
      </widget>
      <widget class="QCheckBox" name="checkBox_3">
       <property name="geometry">

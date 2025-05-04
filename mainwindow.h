@@ -35,7 +35,10 @@ private slots:
 
     void on_exit1_clicked();
 
+    void on_searchTable_clicked();
+
 private:
     Ui::MainWindow *ui;
+    QSqlDatabase db;
 };
 #endif // MAINWINDOW_H
