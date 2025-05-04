@@ -65,7 +65,7 @@ The system has a clean and user-friendly design with the following elements:
 
 ## 👤 Developed By
 
-[Your Name] – Developer & Designer
+Chad Bojelador – Developer & Designer
 
 ## 📄 License
 
