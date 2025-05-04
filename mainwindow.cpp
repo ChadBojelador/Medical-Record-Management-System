@@ -8,8 +8,10 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    qDebug() <<QSqlDatabase::drivers();
+
     ui->stackedWidget->setCurrentIndex(0);
-    ui->tableWidget->setColumnCount(2);
+    ui->tableWidget->setColumnCount(10);
     QStringList headers;
     headers << "Name" << "ID" ;
     ui->tableWidget->setHorizontalHeaderLabels(headers);
@@ -84,8 +86,8 @@ void MainWindow::on_pushButton_2_clicked()
 
     QString id = ui->lineEditID2->text();
 
-    if (surname.isEmpty() || firstName.isEmpty() || id.isEmpty()birth.isEmpty() || religion.isEmpty() || nation.isEmpty()
-        room.isEmpty() || time1.isEmpty() || level.isEmpty()date.isEmpty() || admin.isEmpty()) {
+    if (surname.isEmpty() || firstName.isEmpty() || id.isEmpty()||birth.isEmpty() || religion.isEmpty() || nation.isEmpty()||
+        room.isEmpty() || time1.isEmpty() || level.isEmpty()||date.isEmpty() || admin.isEmpty()) {
         QMessageBox::warning(this, "Input Error", "Please fill in all fields.");
         return;
     }
