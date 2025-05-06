@@ -266,3 +266,9 @@ void MainWindow::on_searchTable_clicked()
 }
 
 
+
+void MainWindow::on_pushbuttonEXIT_clicked()
+{
+
+}
+
