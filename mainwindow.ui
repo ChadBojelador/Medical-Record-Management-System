@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="aa">
      <widget class="QLineEdit" name="lineEditID">
@@ -428,7 +428,7 @@
         <x>30</x>
         <y>270</y>
         <width>661</width>
-        <height>197</height>
+        <height>205</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="formLayout_4">
@@ -445,7 +445,7 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label_16">
          <property name="text">
-          <string>Contact No.</string>
+          <string>Contact No:</string>
          </property>
         </widget>
        </item>
@@ -482,15 +482,25 @@
        <item row="4" column="1">
         <widget class="QLineEdit" name="lineEditID2"/>
        </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_27">
+         <property name="text">
+          <string>Address:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QLineEdit" name="lineEditAddress"/>
+       </item>
       </layout>
      </widget>
      <widget class="QTabWidget" name="tabWidget">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>450</y>
+        <y>500</y>
         <width>661</width>
-        <height>251</height>
+        <height>201</height>
        </rect>
       </property>
       <property name="maximumSize">
@@ -1185,11 +1195,6 @@
       <column>
        <property name="text">
         <string>Birthdate</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>New Column</string>
        </property>
       </column>
       <column>

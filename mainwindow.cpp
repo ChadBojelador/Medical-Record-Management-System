@@ -12,20 +12,20 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // Enable scroll bars (horizontal and vertical)
+
     ui->tableWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     ui->tableWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 
-    // Adjust column width (manual setting for column 0)
-    ui->tableWidget->setColumnWidth(1, 400);  // Column 0 set to 180px
 
-    // Resize columns based on content (auto)
+
+
     ui->tableWidget->resizeColumnsToContents();
 
-    // Stretch columns to fill the available space
-    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
-
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
+    ui->tableWidget->setColumnWidth(1, 400);
+    ui->tableWidget->setColumnWidth(10, 300);
+    ui->tableWidget->setColumnWidth(9, 300);
     ui->stackedWidget->setCurrentIndex(0);
 }
 
@@ -110,6 +110,8 @@ void MainWindow::on_pushButton_2_clicked()
     QString admin = ui->lineEditAdmin->text();
     QString ageStr = QString::number(ui->age->value());
     QString dateAdmitted = ui->lineEditDate->text();
+    QString contact = ui->lineEditContact->text();
+    QString address = ui->lineEditAddress->text();
     QString selectedGender;
     if (ui->radioMale->isChecked()) {
         selectedGender = "Male";
@@ -126,7 +128,7 @@ void MainWindow::on_pushButton_2_clicked()
     QString dateStr = birthday.toString("yyyy-MM-dd");
 
     if (surname.isEmpty() || firstName.isEmpty() || id.isEmpty()||birth.isEmpty() || religion.isEmpty() || nation.isEmpty()||
-        room.isEmpty() || time1.isEmpty() || level.isEmpty()||dateAdmitted.isEmpty() || admin.isEmpty()){
+        room.isEmpty() || time1.isEmpty() || level.isEmpty()||dateAdmitted.isEmpty() || admin.isEmpty() || contact.isEmpty()||address.isEmpty()){
         QMessageBox::warning(this, "Input Error", "Please fill in all fields.");
         return;
     }
@@ -139,8 +141,8 @@ void MainWindow::on_pushButton_2_clicked()
         return;
     }
     QSqlQuery query;
-    query.prepare("INSERT INTO finaldb (ID, NAME, SUFFIX, AGE, BIRTHDATE, BLOOD_TYPE, CIVIL_STATUS, BIRTHPLACE, RELIGION, NATIONALITY, ROOM, TIME_ADMITTED, LEVEL_OF_CARE, DATE_ADMITTED, ADMIN_NAME, SEX) "
-                  "VALUES (:id, :fullName, :suffix, :age, :birthdate, :bloodType, :civilStatus, :birthplace, :religion, :nation, :room, :time1, :level, :dateAdmitted, :admin, :gender)");
+    query.prepare("INSERT INTO finaldb (ID, NAME, SUFFIX, AGE, BIRTHDATE, BLOOD_TYPE, CIVIL_STATUS, BIRTHPLACE, CONTACT_NO, RELIGION, NATIONALITY, ADDRESS, ROOM, TIME_ADMITTED, LEVEL_OF_CARE, DATE_ADMITTED, ADMIN_NAME, SEX) "
+                  "VALUES (:id, :fullName, :suffix, :age, :birthdate, :bloodType, :civilStatus, :birthplace, :contact, :religion, :nation, :address, :room, :time1, :level, :dateAdmitted, :admin, :gender)");
 
     query.bindValue(":id", id);
     query.bindValue(":fullName", fullName);
@@ -149,9 +151,11 @@ void MainWindow::on_pushButton_2_clicked()
     query.bindValue(":birthdate", dateStr);
     query.bindValue(":bloodType", bloodType);
     query.bindValue(":civilStatus", civilStatus);
-    query.bindValue(":birthplace", birth); // assuming 'birth' is the birthplace, not birthdate
+    query.bindValue(":birthplace", birth);
+    query.bindValue(":contact", contact);
     query.bindValue(":religion", religion);
     query.bindValue(":nation", nation);
+        query.bindValue(":address", address);
     query.bindValue(":room", room);
     query.bindValue(":time1", time1);
     query.bindValue(":level", level);
@@ -270,5 +274,11 @@ void MainWindow::on_searchTable_clicked()
 void MainWindow::on_pushbuttonEXIT_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_checkBox_3_checkStateChanged(const Qt::CheckState &arg1)
+{
+
 }
 
