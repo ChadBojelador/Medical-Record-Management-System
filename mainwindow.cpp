@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 
     // Adjust column width (manual setting for column 0)
-    ui->tableWidget->setColumnWidth(0, 180);  // Column 0 set to 180px
+    ui->tableWidget->setColumnWidth(1, 400);  // Column 0 set to 180px
 
     // Resize columns based on content (auto)
     ui->tableWidget->resizeColumnsToContents();
@@ -269,6 +269,6 @@ void MainWindow::on_searchTable_clicked()
 
 void MainWindow::on_pushbuttonEXIT_clicked()
 {
-
+    ui->stackedWidget->setCurrentIndex(0);
 }
 

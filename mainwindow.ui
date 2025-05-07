@@ -1169,7 +1169,82 @@
       </column>
       <column>
        <property name="text">
+        <string>Suffix</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
         <string>Age</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Sex</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Birthdate</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>New Column</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Blood Type</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Civil Status</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Birthplace</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Contact No</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Religion</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Nationality</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Address</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Time Admitted</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Room</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Level of Care</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Date Admitted</string>
        </property>
       </column>
      </widget>
