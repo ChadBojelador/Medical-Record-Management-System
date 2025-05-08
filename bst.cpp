@@ -1,6 +1,8 @@
 #include "bst.h"
-
-
+#include <QSqlDatabase>
+#include <QSqlError>
+#include <QSqlQuery>
+#include <QDebug>
 
 
 BstNode* Insert(BstNode* root, BstNode* newNode) {
@@ -20,3 +22,8 @@ BstNode* Insert(BstNode* root, BstNode* newNode) {
 
 
 bst::bst() {}
+
+
+void bst::InsertNode(BstNode* newNode) {
+    root = Insert(root, newNode);
+}

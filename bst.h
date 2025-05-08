@@ -33,6 +33,7 @@ struct BstNode{
 class bst
 {
 
+
 private:
     Ui::MainWindow *ui;
     BstNode* root = nullptr; // Declare it here
@@ -47,6 +48,7 @@ public:
                         const QString& dateAdmitted, const QString& contact, const QString& address, const QString& selectedGender,
                         const QString& fullName, const QString& suffix,const QString& bloodType,const QString& civilStatus,
                         const QString& dateStr);
+        void InsertNode(BstNode* newNode);
 
 };
 BstNode* Insert(BstNode* root, BstNode* newNode);

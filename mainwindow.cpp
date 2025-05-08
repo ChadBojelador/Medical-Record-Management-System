@@ -17,9 +17,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     ui->tableWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 
-
-
-
     ui->tableWidget->resizeColumnsToContents();
 
 
@@ -28,7 +25,55 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableWidget->setColumnWidth(10, 300);
     ui->tableWidget->setColumnWidth(9, 300);
     ui->stackedWidget->setCurrentIndex(0);
-}
+
+
+        QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
+        db.setHostName("127.0.0.1");
+        db.setDatabaseName("finaldb");
+        db.setUserName("root");
+        db.setPassword("");
+
+
+        if (!db.open()) {
+            QMessageBox::critical(nullptr, "Connection Failed", db.lastError().text());
+        } else {
+            QMessageBox::information(nullptr, "Success", "Connected to MySQL database!");
+        }
+
+        // 2. Execute SQL SELECT
+        QSqlQuery query;
+        if (!query.exec("SELECT ID, NAME, SUFFIX, AGE, BIRTHDATE, BLOOD_TYPE, CIVIL_STATUS, BIRTHPLACE, CONTACT_NO, RELIGION, NATIONALITY, ADDRESS, ROOM, TIME_ADMITTED, LEVEL_OF_CARE, DATE_ADMITTED, ADMIN_NAME, SEX FROM finaldb")) {
+            qDebug() << "Query error:" << query.lastError().text();
+            return;
+        }
+
+        // 3. Fetch rows and insert into BST
+        while (query.next()) {
+            BstNode* node = new BstNode();
+            node->id = query.value(0).toString();
+            node->fullName = query.value(1).toString();
+            node->suffix = query.value(2).toString();
+            node->ageStr = query.value(3).toString();
+            node->dateStr = query.value(4).toString();
+            node->bloodType = query.value(5).toString();
+            node->civilStatus = query.value(6).toString();
+            node->birth = query.value(7).toString();
+            node->contact = query.value(8).toString();
+            node->religion = query.value(9).toString();
+            node->nation = query.value(10).toString();
+            node->address = query.value(11).toString();
+            node->room = query.value(12).toString();
+            node->time1 = query.value(13).toString();
+            node->level = query.value(14).toString();
+            node->dateAdmitted = query.value(15).toString();
+            node->admin = query.value(16).toString();
+            node->selectedGender = query.value(17).toString();
+
+            tree.InsertNode(node);  // You should implement this in bst class
+        }
+    }
+
+
 BstNode* CreateNodeFromUI(Ui::MainWindow* ui) {
     BstNode* newNode = new BstNode();
 
@@ -72,22 +117,9 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void connectToDatabase() {
-
-     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-    db.setHostName("127.0.0.1");
-    db.setDatabaseName("finaldb");
-    db.setUserName("root");
-    db.setPassword("");
 
 
-    if (!db.open()) {
-        QMessageBox::critical(nullptr, "Connection Failed", db.lastError().text());
-    } else {
-        QMessageBox::information(nullptr, "Success", "Connected to MySQL database!");
-    }
 
-}
 void MainWindow::on_pushButtonLogin_clicked()
 {
     if (ui->radioAdmin->isChecked()){
@@ -221,7 +253,7 @@ void MainWindow::on_pushButton_2_clicked()
         }
 
 
-    /*
+/*
     ui->lineEditSurname->clear();
     ui->lineEditFirst->clear();
     ui->lineEditMI->clear();
@@ -234,8 +266,9 @@ void MainWindow::on_pushButton_2_clicked()
     ui->lineEditLevel->clear();
     ui->lineEditDate->clear();
     ui->lineEditAdmin->clear();
-}*/
+*/
 }
+
 void MainWindow::on_list_clicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
