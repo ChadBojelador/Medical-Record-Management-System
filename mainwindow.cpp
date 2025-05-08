@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "bst.h"
 #include <QMessageBox>
 #include <QSqlDatabase>
 #include <QSqlError>
@@ -28,7 +29,43 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableWidget->setColumnWidth(9, 300);
     ui->stackedWidget->setCurrentIndex(0);
 }
+BstNode* CreateNodeFromUI(Ui::MainWindow* ui) {
+    BstNode* newNode = new BstNode();
 
+    newNode->id = ui->lineEditID2->text();
+    newNode->surname = ui->lineEditSurname->text();
+    newNode->firstName = ui->lineEditFirst->text();
+    newNode->middleName = ui->lineEditMI->text();
+    newNode->birth = ui->lineEditbirth->text();
+    newNode->religion = ui->lineEditReligion->text();
+    newNode->nation = ui->lineEditNation->text();
+    newNode->room = ui->lineEditRoom->text();
+    newNode->time1 = ui->lineEditTime1->text();
+    newNode->level = ui->lineEditLevel->text();
+    newNode->admin = ui->lineEditAdmin->text();
+    newNode->ageStr = QString::number(ui->age->value());
+    newNode->dateAdmitted = ui->lineEditDate->text();
+    newNode->contact = ui->lineEditContact->text();
+    newNode->address = ui->lineEditAddress->text();
+
+    if (ui->radioMale->isChecked()) {
+        newNode->selectedGender = "Male";
+    } else if (ui->radioFemale->isChecked()) {
+        newNode->selectedGender = "Female";
+    }
+
+    newNode->fullName = newNode->surname + ", " + newNode->firstName + " " + newNode->middleName;
+    newNode->suffix = ui->suffix->currentText();
+    newNode->bloodType = ui->bloodType->currentText();
+    newNode->civilStatus = ui->civilStatus->currentText();
+    QDate birthday = ui->dateEdit->date();
+    newNode->dateStr = birthday.toString("yyyy-MM-dd");
+
+    newNode->left = nullptr;
+    newNode->right = nullptr;
+
+    return newNode;
+}
 
 MainWindow::~MainWindow()
 {
@@ -96,79 +133,94 @@ void MainWindow::on_lineEditID_textChanged(const QString &text)
 
 void MainWindow::on_pushButton_2_clicked()
 {
+        QString id = ui->lineEditID2->text();
+        QString surname = ui->lineEditSurname->text();
+        QString firstName = ui->lineEditFirst->text();
+        QString middleName = ui->lineEditMI->text();
+        QString birth = ui->lineEditbirth->text();
+        QString religion = ui->lineEditReligion->text();
+        QString nation = ui->lineEditNation->text();
+        QString room = ui->lineEditRoom->text();
+        QString time1 = ui->lineEditTime1->text();
+        QString level = ui->lineEditLevel->text();
+        QString admin = ui->lineEditAdmin->text();
+        int ageValue = ui->age->value();
+        QString ageStr = QString::number(ageValue);
+        QString dateAdmitted = ui->lineEditDate->text();
+        QString contact = ui->lineEditContact->text();
+        QString address = ui->lineEditAddress->text();
+        QString selectedGender;
 
-    QString id = ui->lineEditID2->text();
-    QString surname = ui->lineEditSurname->text();
-    QString firstName = ui->lineEditFirst->text();
-    QString middleName = ui->lineEditMI->text();
-    QString birth = ui->lineEditbirth->text();
-    QString religion = ui->lineEditReligion->text();
-    QString nation = ui->lineEditNation->text();
-    QString room = ui->lineEditRoom->text();
-    QString time1 = ui->lineEditTime1->text();
-    QString level = ui->lineEditLevel->text();
-    QString admin = ui->lineEditAdmin->text();
-    QString ageStr = QString::number(ui->age->value());
-    QString dateAdmitted = ui->lineEditDate->text();
-    QString contact = ui->lineEditContact->text();
-    QString address = ui->lineEditAddress->text();
-    QString selectedGender;
-    if (ui->radioMale->isChecked()) {
-        selectedGender = "Male";
-    } else if (ui->radioFemale->isChecked()) {
-        selectedGender = "Female";
-    }
+        if (ui->radioMale->isChecked()) {
+            selectedGender = "Male";
+        } else if (ui->radioFemale->isChecked()) {
+            selectedGender = "Female";
+        }
 
-    QString fullName = surname + ", " + firstName + " " + middleName;
-    QString suffix = ui->suffix->currentText();
-    QString bloodType = ui->bloodType->currentText();
-    QString civilStatus = ui->civilStatus->currentText();
+        QString fullName = surname + ", " + firstName + " " + middleName;
+        QString suffix = ui->suffix->currentText();
+        QString bloodType = ui->bloodType->currentText();
+        QString civilStatus = ui->civilStatus->currentText();
+        QDate birthday = ui->dateEdit->date();
+        QString dateStr = birthday.toString("yyyy-MM-dd");
 
-    QDate birthday = ui->dateEdit->date();  // QDateEdit from the UI
-    QString dateStr = birthday.toString("yyyy-MM-dd");
+        if (surname.isEmpty() || firstName.isEmpty() || id.isEmpty()||birth.isEmpty() || religion.isEmpty() || nation.isEmpty()||
+            room.isEmpty() || time1.isEmpty() || level.isEmpty()||dateAdmitted.isEmpty() || admin.isEmpty() || contact.isEmpty()||address.isEmpty()) {
+            QMessageBox::warning(this, "Input Error", "Please fill in all fields.");
+            return;
+        }
+        else if (!ui->radioMale->isChecked() && !ui->radioFemale->isChecked()) {
+            QMessageBox::warning(this, "Input Error", "Please fill in all fields.");
+            return;
+        }
+        else if (!ui->consent1->isChecked() && !ui->consent2->isChecked()) {
+            QMessageBox::warning(this, "Consent Form", "Please read and check in all consent.");
+            return;
+        }
+        else if (ageValue <= 0) {
+            QMessageBox::warning(this, "Input Error", "Please enter a valid age.");
+            return;
+        }
 
-    if (surname.isEmpty() || firstName.isEmpty() || id.isEmpty()||birth.isEmpty() || religion.isEmpty() || nation.isEmpty()||
-        room.isEmpty() || time1.isEmpty() || level.isEmpty()||dateAdmitted.isEmpty() || admin.isEmpty() || contact.isEmpty()||address.isEmpty()){
-        QMessageBox::warning(this, "Input Error", "Please fill in all fields.");
-        return;
-    }
-    else if (!ui->radioMale->isChecked() && !ui->radioFemale->isChecked()){
-        QMessageBox::warning(this, "Input Error", "Please fill in all fields.");
-        return;
-    }
-    else if (!ui->consent1->isChecked()&& !ui->consent2->isChecked()){
-        QMessageBox::warning(this, "Consent Form", "Please read and check in all consent.");
-        return;
-    }
-    QSqlQuery query;
-    query.prepare("INSERT INTO finaldb (ID, NAME, SUFFIX, AGE, BIRTHDATE, BLOOD_TYPE, CIVIL_STATUS, BIRTHPLACE, CONTACT_NO, RELIGION, NATIONALITY, ADDRESS, ROOM, TIME_ADMITTED, LEVEL_OF_CARE, DATE_ADMITTED, ADMIN_NAME, SEX) "
-                  "VALUES (:id, :fullName, :suffix, :age, :birthdate, :bloodType, :civilStatus, :birthplace, :contact, :religion, :nation, :address, :room, :time1, :level, :dateAdmitted, :admin, :gender)");
+        BstNode* newNode = CreateNodeFromUI(ui);
+        if (!newNode) {
+            QMessageBox::warning(this, "Error", "Failed to create BST node.");
+            return;
+        }
 
-    query.bindValue(":id", id);
-    query.bindValue(":fullName", fullName);
-    query.bindValue(":suffix", suffix);
-    query.bindValue(":age", ageStr);
-    query.bindValue(":birthdate", dateStr);
-    query.bindValue(":bloodType", bloodType);
-    query.bindValue(":civilStatus", civilStatus);
-    query.bindValue(":birthplace", birth);
-    query.bindValue(":contact", contact);
-    query.bindValue(":religion", religion);
-    query.bindValue(":nation", nation);
+        root = Insert(root, newNode);
+
+        QSqlQuery query;
+        query.prepare("INSERT INTO finaldb (ID, NAME, SUFFIX, AGE, BIRTHDATE, BLOOD_TYPE, CIVIL_STATUS, BIRTHPLACE, CONTACT_NO, RELIGION, NATIONALITY, ADDRESS, ROOM, TIME_ADMITTED, LEVEL_OF_CARE, DATE_ADMITTED, ADMIN_NAME, SEX) "
+                      "VALUES (:id, :fullName, :suffix, :age, :birthdate, :bloodType, :civilStatus, :birthplace, :contact, :religion, :nation, :address, :room, :time1, :level, :dateAdmitted, :admin, :gender)");
+
+        query.bindValue(":id", id);
+        query.bindValue(":fullName", fullName);
+        query.bindValue(":suffix", suffix);
+        query.bindValue(":age", ageStr);
+        query.bindValue(":birthdate", dateStr);
+        query.bindValue(":bloodType", bloodType);
+        query.bindValue(":civilStatus", civilStatus);
+        query.bindValue(":birthplace", birth);
+        query.bindValue(":contact", contact);
+        query.bindValue(":religion", religion);
+        query.bindValue(":nation", nation);
         query.bindValue(":address", address);
-    query.bindValue(":room", room);
-    query.bindValue(":time1", time1);
-    query.bindValue(":level", level);
-    query.bindValue(":dateAdmitted", dateAdmitted);
-    query.bindValue(":admin", admin);
-    query.bindValue(":gender", selectedGender);
+        query.bindValue(":room", room);
+        query.bindValue(":time1", time1);
+        query.bindValue(":level", level);
+        query.bindValue(":dateAdmitted", dateAdmitted);
+        query.bindValue(":admin", admin);
+        query.bindValue(":gender", selectedGender);
+
+        if (query.exec()) {
+            QMessageBox::information(this, "Success", "Student record added successfully.");
+            return; // ✅ Suggestion 1: stop after success
+        } else {
+            QMessageBox::warning(this, "Error", "Failed to add record: " + query.lastError().text());
+        }
 
 
-    if (query.exec()) {
-        QMessageBox::information(this, "Success", "Student record added successfully.");
-    } else {
-        QMessageBox::warning(this, "Error", "Failed to add record: " + query.lastError().text());
-    }
     /*
     ui->lineEditSurname->clear();
     ui->lineEditFirst->clear();
@@ -241,7 +293,6 @@ void MainWindow::on_searchTable_clicked()
     // Open the database
     db.open();
 
-    // Prepare the query to search by name or ID
     QSqlQuery query(db);
     query.prepare("SELECT * FROM finaldb WHERE ID LIKE :searchText OR NAME LIKE :searchText");
     query.bindValue(":searchText", "%" + searchTxt + "%");
@@ -277,8 +328,4 @@ void MainWindow::on_pushbuttonEXIT_clicked()
 }
 
 
-void MainWindow::on_checkBox_3_checkStateChanged(const Qt::CheckState &arg1)
-{
-
-}
 

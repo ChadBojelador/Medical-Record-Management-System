@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
+#include <bst.h>
 #include <QtSql>
 #include <QtCore>
 
@@ -42,5 +42,6 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QSqlDatabase db;
+    BstNode* root = nullptr;
 };
 #endif // MAINWINDOW_H
