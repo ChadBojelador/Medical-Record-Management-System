@@ -26,10 +26,12 @@ struct BstNode{
     QString civilStatus;
     QString dateStr;
 
-
+    QString key;
+    QVariantMap data; // For example: {"ID": "1", "Name": "Juan"}
     BstNode* left;
     BstNode* right;
 };
+
 class bst
 {
 
@@ -52,5 +54,5 @@ public:
 
 };
 BstNode* Insert(BstNode* root, BstNode* newNode);
-
+BstNode* searchBST(BstNode* root, const QString& key);
 #endif // BST_H

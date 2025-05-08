@@ -3,7 +3,7 @@
 #include <QMessageBox>
 #include "mainwindow.h"
 
- // Forward declaration
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);

@@ -322,37 +322,24 @@ void MainWindow::on_searchTable_clicked()
         QMessageBox::warning(this, "Input Error", "Please enter a name or ID to search.");
         return;
     }
+    QString searchKey = ui->searchNameorID->text();
+    BstNode* result = searchBST(root, searchKey);
 
-    // Open the database
-    db.open();
+    ui->tableWidget->setRowCount(0); // Clear table first
 
-    QSqlQuery query(db);
-    query.prepare("SELECT * FROM finaldb WHERE ID LIKE :searchText OR NAME LIKE :searchText");
-    query.bindValue(":searchText", "%" + searchTxt + "%");
-
-    // Execute the query and populate the table
-    if (query.exec()) {
-        int row = 0;
-
-        // Set the number of rows and columns in the table
-        ui->tableWidget->setRowCount(query.size()); // Set number of rows based on search results
-        ui->tableWidget->setColumnCount(query.record().count()); // Set number of columns
-
-        // Iterate through the results and populate the table
-        while (query.next()) {
-            for (int col = 0; col < query.record().count(); ++col) {
-                ui->tableWidget->setItem(row, col, new QTableWidgetItem(query.value(col).toString()));
-            }
-            row++; // Increment row after inserting data
+  if (result) {
+        ui->tableWidget->setRowCount(1);
+        int col = 0;
+        for (const auto& key : result->data.keys()) {
+            QTableWidgetItem* item = new QTableWidgetItem(result->data[key].toString());
+            ui->tableWidget->setItem(0, col++, item);
         }
     } else {
-        qDebug() << "Error retrieving data: " << query.lastError().text();
-    }
+        QMessageBox::information(this, "Not Found", "No record found in BST.");
 
-    // Close the database
-    db.close();
+       ui->searchNameorID->clear();
 }
-
+};
 
 
 void MainWindow::on_pushbuttonEXIT_clicked()
