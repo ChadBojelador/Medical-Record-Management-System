@@ -28,10 +28,36 @@ void bst::InsertNode(BstNode* newNode) {
     root = Insert(root, newNode);
 }
 BstNode* searchBST(BstNode* root, const QString& key) {
-    if (root == nullptr || root->key == key)
+    if (root == nullptr)
+        return nullptr;
+
+    if (root->id.compare(key, Qt::CaseInsensitive) == 0 ||
+        root->fullName.compare(key, Qt::CaseInsensitive) == 0) {
         return root;
-    if (key < root->key)
-        return searchBST(root->left, key);
-    else
-        return searchBST(root->right, key);
+    }
+
+    // You can still use ID as a base for ordering in the tree,
+    // but since search needs to compare both, you must search both subtrees.
+    BstNode* leftResult = searchBST(root->left, key);
+    if (leftResult != nullptr) return leftResult;
+
+    return searchBST(root->right, key);
 }
+void searchBSTMultiple(BstNode* root, const QString& key, QList<BstNode*>& results) {
+    if (root == nullptr) return;
+
+    qDebug() << "Checking node:" << root->id << "|" << root->fullName;
+
+    // Use contains() for partial case-insensitive matching
+    if (root->id.contains(key, Qt::CaseInsensitive) ||
+        root->fullName.contains(key, Qt::CaseInsensitive)) {
+        qDebug() << "MATCH FOUND!";
+        results.append(root);
+    }
+
+    // Recursive search in left and right subtrees
+    searchBSTMultiple(root->left, key, results);
+    searchBSTMultiple(root->right, key, results);
+}
+
+

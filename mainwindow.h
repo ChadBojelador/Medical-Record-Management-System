@@ -43,6 +43,6 @@ private:
     Ui::MainWindow *ui;
     QSqlDatabase db;
     BstNode* root = nullptr;
-        bst tree;
+    bst tree;
 };
 #endif // MAINWINDOW_H

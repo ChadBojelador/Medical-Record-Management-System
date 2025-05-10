@@ -27,51 +27,52 @@ MainWindow::MainWindow(QWidget *parent)
     ui->stackedWidget->setCurrentIndex(0);
 
 
-        QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-        db.setHostName("127.0.0.1");
-        db.setDatabaseName("finaldb");
-        db.setUserName("root");
-        db.setPassword("");
+    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
+    db.setHostName("127.0.0.1");
+    db.setDatabaseName("finaldb");
+    db.setUserName("root");
+    db.setPassword("");
 
 
-        if (!db.open()) {
-            QMessageBox::critical(nullptr, "Connection Failed", db.lastError().text());
-        } else {
-            QMessageBox::information(nullptr, "Success", "Connected to MySQL database!");
-        }
-
-        // 2. Execute SQL SELECT
-        QSqlQuery query;
-        if (!query.exec("SELECT ID, NAME, SUFFIX, AGE, BIRTHDATE, BLOOD_TYPE, CIVIL_STATUS, BIRTHPLACE, CONTACT_NO, RELIGION, NATIONALITY, ADDRESS, ROOM, TIME_ADMITTED, LEVEL_OF_CARE, DATE_ADMITTED, ADMIN_NAME, SEX FROM finaldb")) {
-            qDebug() << "Query error:" << query.lastError().text();
-            return;
-        }
-
-        // 3. Fetch rows and insert into BST
-        while (query.next()) {
-            BstNode* node = new BstNode();
-            node->id = query.value(0).toString();
-            node->fullName = query.value(1).toString();
-            node->suffix = query.value(2).toString();
-            node->ageStr = query.value(3).toString();
-            node->dateStr = query.value(4).toString();
-            node->bloodType = query.value(5).toString();
-            node->civilStatus = query.value(6).toString();
-            node->birth = query.value(7).toString();
-            node->contact = query.value(8).toString();
-            node->religion = query.value(9).toString();
-            node->nation = query.value(10).toString();
-            node->address = query.value(11).toString();
-            node->room = query.value(12).toString();
-            node->time1 = query.value(13).toString();
-            node->level = query.value(14).toString();
-            node->dateAdmitted = query.value(15).toString();
-            node->admin = query.value(16).toString();
-            node->selectedGender = query.value(17).toString();
-
-            tree.InsertNode(node);  // You should implement this in bst class
-        }
+    if (!db.open()) {
+        QMessageBox::critical(nullptr, "Connection Failed", db.lastError().text());
+    } else {
+        QMessageBox::information(nullptr, "Success", "Connected to MySQL database!");
     }
+
+    // 2. Execute SQL SELECT
+    QSqlQuery query;
+    if (!query.exec("SELECT ID, NAME, SUFFIX, AGE, BIRTHDATE, BLOOD_TYPE, CIVIL_STATUS, BIRTHPLACE, CONTACT_NO, RELIGION, NATIONALITY, ADDRESS, ROOM, TIME_ADMITTED, LEVEL_OF_CARE, DATE_ADMITTED, ADMIN_NAME, SEX FROM finaldb")) {
+        qDebug() << "Query error:" << query.lastError().text();
+        return;
+    }
+
+    // 3. Fetch rows and insert into BST
+    while (query.next()) {
+        BstNode* node = new BstNode();
+        node->id = query.value(0).toString();
+        node->fullName = query.value(1).toString();
+        node->suffix = query.value(2).toString();
+        node->ageStr = query.value(3).toString();
+        node->dateStr = query.value(4).toString();
+        node->bloodType = query.value(5).toString();
+        node->civilStatus = query.value(6).toString();
+        node->birth = query.value(7).toString();
+        node->contact = query.value(8).toString();
+        node->religion = query.value(9).toString();
+        node->nation = query.value(10).toString();
+        node->address = query.value(11).toString();
+        node->room = query.value(12).toString();
+        node->time1 = query.value(13).toString();
+        node->level = query.value(14).toString();
+        node->dateAdmitted = query.value(15).toString();
+        node->admin = query.value(16).toString();
+        node->selectedGender = query.value(17).toString();
+
+        tree.InsertNode(node);  // You should implement this in bst class
+
+    }
+}
 
 
 BstNode* CreateNodeFromUI(Ui::MainWindow* ui) {
@@ -165,95 +166,95 @@ void MainWindow::on_lineEditID_textChanged(const QString &text)
 
 void MainWindow::on_pushButton_2_clicked()
 {
-        QString id = ui->lineEditID2->text();
-        QString surname = ui->lineEditSurname->text();
-        QString firstName = ui->lineEditFirst->text();
-        QString middleName = ui->lineEditMI->text();
-        QString birth = ui->lineEditbirth->text();
-        QString religion = ui->lineEditReligion->text();
-        QString nation = ui->lineEditNation->text();
-        QString room = ui->lineEditRoom->text();
-        QString time1 = ui->lineEditTime1->text();
-        QString level = ui->lineEditLevel->text();
-        QString admin = ui->lineEditAdmin->text();
-        int ageValue = ui->age->value();
-        QString ageStr = QString::number(ageValue);
-        QString dateAdmitted = ui->lineEditDate->text();
-        QString contact = ui->lineEditContact->text();
-        QString address = ui->lineEditAddress->text();
-        QString selectedGender;
+    QString id = ui->lineEditID2->text();
+    QString surname = ui->lineEditSurname->text();
+    QString firstName = ui->lineEditFirst->text();
+    QString middleName = ui->lineEditMI->text();
+    QString birth = ui->lineEditbirth->text();
+    QString religion = ui->lineEditReligion->text();
+    QString nation = ui->lineEditNation->text();
+    QString room = ui->lineEditRoom->text();
+    QString time1 = ui->lineEditTime1->text();
+    QString level = ui->lineEditLevel->text();
+    QString admin = ui->lineEditAdmin->text();
+    int ageValue = ui->age->value();
+    QString ageStr = QString::number(ageValue);
+    QString dateAdmitted = ui->lineEditDate->text();
+    QString contact = ui->lineEditContact->text();
+    QString address = ui->lineEditAddress->text();
+    QString selectedGender;
 
-        if (ui->radioMale->isChecked()) {
-            selectedGender = "Male";
-        } else if (ui->radioFemale->isChecked()) {
-            selectedGender = "Female";
-        }
+    if (ui->radioMale->isChecked()) {
+        selectedGender = "Male";
+    } else if (ui->radioFemale->isChecked()) {
+        selectedGender = "Female";
+    }
 
-        QString fullName = surname + ", " + firstName + " " + middleName;
-        QString suffix = ui->suffix->currentText();
-        QString bloodType = ui->bloodType->currentText();
-        QString civilStatus = ui->civilStatus->currentText();
-        QDate birthday = ui->dateEdit->date();
-        QString dateStr = birthday.toString("yyyy-MM-dd");
+    QString fullName = surname + ", " + firstName + " " + middleName;
+    QString suffix = ui->suffix->currentText();
+    QString bloodType = ui->bloodType->currentText();
+    QString civilStatus = ui->civilStatus->currentText();
+    QDate birthday = ui->dateEdit->date();
+    QString dateStr = birthday.toString("yyyy-MM-dd");
 
-        if (surname.isEmpty() || firstName.isEmpty() || id.isEmpty()||birth.isEmpty() || religion.isEmpty() || nation.isEmpty()||
-            room.isEmpty() || time1.isEmpty() || level.isEmpty()||dateAdmitted.isEmpty() || admin.isEmpty() || contact.isEmpty()||address.isEmpty()) {
-            QMessageBox::warning(this, "Input Error", "Please fill in all fields.");
-            return;
-        }
-        else if (!ui->radioMale->isChecked() && !ui->radioFemale->isChecked()) {
-            QMessageBox::warning(this, "Input Error", "Please fill in all fields.");
-            return;
-        }
-        else if (!ui->consent1->isChecked() && !ui->consent2->isChecked()) {
-            QMessageBox::warning(this, "Consent Form", "Please read and check in all consent.");
-            return;
-        }
-        else if (ageValue <= 0) {
-            QMessageBox::warning(this, "Input Error", "Please enter a valid age.");
-            return;
-        }
+    if (surname.isEmpty() || firstName.isEmpty() || id.isEmpty()||birth.isEmpty() || religion.isEmpty() || nation.isEmpty()||
+        room.isEmpty() || time1.isEmpty() || level.isEmpty()||dateAdmitted.isEmpty() || admin.isEmpty() || contact.isEmpty()||address.isEmpty()) {
+        QMessageBox::warning(this, "Input Error", "Please fill in all fields.");
+        return;
+    }
+    else if (!ui->radioMale->isChecked() && !ui->radioFemale->isChecked()) {
+        QMessageBox::warning(this, "Input Error", "Please fill in all fields.");
+        return;
+    }
+    else if (!ui->consent1->isChecked() && !ui->consent2->isChecked()) {
+        QMessageBox::warning(this, "Consent Form", "Please read and check in all consent.");
+        return;
+    }
+    else if (ageValue <= 0) {
+        QMessageBox::warning(this, "Input Error", "Please enter a valid age.");
+        return;
+    }
 
-        BstNode* newNode = CreateNodeFromUI(ui);
-        if (!newNode) {
-            QMessageBox::warning(this, "Error", "Failed to create BST node.");
-            return;
-        }
+    BstNode* newNode = CreateNodeFromUI(ui);
+    if (!newNode) {
+        QMessageBox::warning(this, "Error", "Failed to create BST node.");
+        return;
+    }
 
-        root = Insert(root, newNode);
+    root = Insert(root, newNode);
 
-        QSqlQuery query;
-        query.prepare("INSERT INTO finaldb (ID, NAME, SUFFIX, AGE, BIRTHDATE, BLOOD_TYPE, CIVIL_STATUS, BIRTHPLACE, CONTACT_NO, RELIGION, NATIONALITY, ADDRESS, ROOM, TIME_ADMITTED, LEVEL_OF_CARE, DATE_ADMITTED, ADMIN_NAME, SEX) "
-                      "VALUES (:id, :fullName, :suffix, :age, :birthdate, :bloodType, :civilStatus, :birthplace, :contact, :religion, :nation, :address, :room, :time1, :level, :dateAdmitted, :admin, :gender)");
+    QSqlQuery query;
+    query.prepare("INSERT INTO finaldb (ID, NAME, SUFFIX, AGE, BIRTHDATE, BLOOD_TYPE, CIVIL_STATUS, BIRTHPLACE, CONTACT_NO, RELIGION, NATIONALITY, ADDRESS, ROOM, TIME_ADMITTED, LEVEL_OF_CARE, DATE_ADMITTED, ADMIN_NAME, SEX) "
+                  "VALUES (:id, :fullName, :suffix, :age, :birthdate, :bloodType, :civilStatus, :birthplace, :contact, :religion, :nation, :address, :room, :time1, :level, :dateAdmitted, :admin, :gender)");
 
-        query.bindValue(":id", id);
-        query.bindValue(":fullName", fullName);
-        query.bindValue(":suffix", suffix);
-        query.bindValue(":age", ageStr);
-        query.bindValue(":birthdate", dateStr);
-        query.bindValue(":bloodType", bloodType);
-        query.bindValue(":civilStatus", civilStatus);
-        query.bindValue(":birthplace", birth);
-        query.bindValue(":contact", contact);
-        query.bindValue(":religion", religion);
-        query.bindValue(":nation", nation);
-        query.bindValue(":address", address);
-        query.bindValue(":room", room);
-        query.bindValue(":time1", time1);
-        query.bindValue(":level", level);
-        query.bindValue(":dateAdmitted", dateAdmitted);
-        query.bindValue(":admin", admin);
-        query.bindValue(":gender", selectedGender);
+    query.bindValue(":id", id);
+    query.bindValue(":fullName", fullName);
+    query.bindValue(":suffix", suffix);
+    query.bindValue(":age", ageStr);
+    query.bindValue(":birthdate", dateStr);
+    query.bindValue(":bloodType", bloodType);
+    query.bindValue(":civilStatus", civilStatus);
+    query.bindValue(":birthplace", birth);
+    query.bindValue(":contact", contact);
+    query.bindValue(":religion", religion);
+    query.bindValue(":nation", nation);
+    query.bindValue(":address", address);
+    query.bindValue(":room", room);
+    query.bindValue(":time1", time1);
+    query.bindValue(":level", level);
+    query.bindValue(":dateAdmitted", dateAdmitted);
+    query.bindValue(":admin", admin);
+    query.bindValue(":gender", selectedGender);
 
-        if (query.exec()) {
-            QMessageBox::information(this, "Success", "Student record added successfully.");
-            return; // ✅ Suggestion 1: stop after success
-        } else {
-            QMessageBox::warning(this, "Error", "Failed to add record: " + query.lastError().text());
-        }
+    if (query.exec()) {
+        QMessageBox::information(this, "Success", "Student record added successfully.");
+        return; // ✅ Suggestion 1: stop after success
+    } else {
+        QMessageBox::warning(this, "Error", "Failed to add record: " + query.lastError().text());
+    }
 
 
-/*
+    /*
     ui->lineEditSurname->clear();
     ui->lineEditFirst->clear();
     ui->lineEditMI->clear();
@@ -317,28 +318,50 @@ void MainWindow::on_exit1_clicked()
 
 void MainWindow::on_searchTable_clicked()
 {
-    QString searchTxt = ui->searchNameorID->text();  // Assuming it's a QLineEdit
+    QString searchTxt = ui->searchNameorID->text().trimmed();
+
     if (searchTxt.isEmpty()) {
         QMessageBox::warning(this, "Input Error", "Please enter a name or ID to search.");
         return;
     }
-    QString searchKey = ui->searchNameorID->text();
-    BstNode* result = searchBST(root, searchKey);
 
-    ui->tableWidget->setRowCount(0); // Clear table first
+    QList<BstNode*> results;
+    searchBSTMultiple(root, searchTxt, results);  // New function that collects all matches
 
-  if (result) {
-        ui->tableWidget->setRowCount(1);
+    ui->tableWidget->setRowCount(0);
+
+    if (results.isEmpty()) {
+        QMessageBox::information(this, "Not Found", "No matching records found.");
+        ui->searchNameorID->clear();
+        return;
+    }
+
+    ui->tableWidget->setRowCount(results.size());
+    ui->tableWidget->setColumnCount(18); // Adjust if you have more/less columns
+
+    for (int i = 0; i < results.size(); ++i) {
+        BstNode* result = results[i];
         int col = 0;
-        for (const auto& key : result->data.keys()) {
-            QTableWidgetItem* item = new QTableWidgetItem(result->data[key].toString());
-            ui->tableWidget->setItem(0, col++, item);
-        }
-    } else {
-        QMessageBox::information(this, "Not Found", "No record found in BST.");
 
-       ui->searchNameorID->clear();
-}
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->id));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->fullName));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->suffix));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->ageStr));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->dateStr));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->bloodType));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->civilStatus));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->birth));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->contact));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->religion));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->nation));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->address));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->room));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->time1));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->level));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->dateAdmitted));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->admin));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->selectedGender));
+    }
 };
 
 
@@ -346,6 +369,3 @@ void MainWindow::on_pushbuttonEXIT_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
 }
-
-
-

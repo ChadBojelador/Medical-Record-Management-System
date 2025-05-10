@@ -50,9 +50,11 @@ public:
                         const QString& dateAdmitted, const QString& contact, const QString& address, const QString& selectedGender,
                         const QString& fullName, const QString& suffix,const QString& bloodType,const QString& civilStatus,
                         const QString& dateStr);
-        void InsertNode(BstNode* newNode);
+    void InsertNode(BstNode* newNode);
 
 };
 BstNode* Insert(BstNode* root, BstNode* newNode);
 BstNode* searchBST(BstNode* root, const QString& key);
+
+
 #endif // BST_H
