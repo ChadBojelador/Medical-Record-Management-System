@@ -403,8 +403,8 @@ void MainWindow::loadDatabaseIntoBST()
 
     while (query.next()) {
         BstNode* node = new BstNode();
-        while (query.next()) {
-            BstNode* node = new BstNode();
+        node->id = query.value(0).toString();
+        node->key = node->id;
             node->id = query.value(0).toString();
 
             node->fullName = query.value(1).toString();
@@ -444,7 +444,7 @@ void MainWindow::loadDatabaseIntoBST()
             tree.insert(node);
         }
     }
-}
+
 void MainWindow::reloadDatabase()
 {
     tree.clear();  // Use your actual member name
