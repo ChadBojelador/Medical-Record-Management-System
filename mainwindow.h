@@ -39,10 +39,16 @@ private slots:
 
     void on_pushbuttonEXIT_clicked();
 
+    void on_refreshButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QSqlDatabase db;
     BstNode* root = nullptr;
     bst tree;
+    void clearTable();
+    void reloadDatabase();
+    void loadDatabaseIntoBST();
+
 };
 #endif // MAINWINDOW_H

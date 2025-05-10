@@ -1,60 +1,60 @@
 #ifndef BST_H
 #define BST_H
-#include <QString>
-#include "ui_mainwindow.h"
 
-struct BstNode{
+#include <QString>
+#include <QList>
+
+struct BstNode {
+    QString key; // Used for BST ordering (ID)
+    // Patient Data Fields
     QString id;
     QString surname;
     QString firstName;
     QString middleName;
+    QString suffix;
+    QString fullName;
+    QString ageStr;
+    QString dateStr;
+    QString bloodType;
+    QString civilStatus;
     QString birth;
+    QString contact;
     QString religion;
     QString nation;
+    QString address;
     QString room;
     QString time1;
     QString level;
-    QString admin;
-    QString ageStr;
     QString dateAdmitted;
-    QString contact;
-    QString address;
+    QString admin;
     QString selectedGender;
-    QString fullName;
-    QString suffix;
-    QString bloodType;
-    QString civilStatus;
-    QString dateStr;
 
-    QString key;
-    QVariantMap data; // For example: {"ID": "1", "Name": "Juan"}
     BstNode* left;
     BstNode* right;
+
+    BstNode() : left(nullptr), right(nullptr) {}
 };
 
 class bst
 {
-
-
-private:
-    Ui::MainWindow *ui;
-    BstNode* root = nullptr; // Declare it here
-
-
 public:
     bst();
+    ~bst();
 
-    BstNode* GetNewNode (const QString& id, const QString& surname, const QString& firstName, const QString& middleName,
-                        const QString& birth, const QString& religion, const QString& nation, const QString& room,
-                        const QString& time1, const QString& level, const QString& admin, const QString& ageStr,
-                        const QString& dateAdmitted, const QString& contact, const QString& address, const QString& selectedGender,
-                        const QString& fullName, const QString& suffix,const QString& bloodType,const QString& civilStatus,
-                        const QString& dateStr);
-    void InsertNode(BstNode* newNode);
+    // Core BST operations
+    void insert(BstNode* newNode);
+    QList<BstNode*> searchMultiple(const QString& searchText) const;
+
+    void clear();
+
+private:
+    BstNode* root;
+
+    // Helper functions
+    BstNode* insertHelper(BstNode* node, BstNode* newNode);
+    void searchHelper(BstNode* node, const QString& searchText, QList<BstNode*>& results) const;
+    void clearTree(BstNode* node);
 
 };
-BstNode* Insert(BstNode* root, BstNode* newNode);
-BstNode* searchBST(BstNode* root, const QString& key);
-
 
 #endif // BST_H

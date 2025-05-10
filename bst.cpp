@@ -1,63 +1,57 @@
 #include "bst.h"
-#include <QSqlDatabase>
-#include <QSqlError>
-#include <QSqlQuery>
 #include <QDebug>
 
+bst::bst() : root(nullptr) {}
 
-BstNode* Insert(BstNode* root, BstNode* newNode) {
-    if (root == nullptr) {
-        return newNode;
-    }
-
-    if (newNode->id < root->id) {
-        root->left = Insert(root->left, newNode);
-    } else {
-        root->right = Insert(root->right, newNode);
-    }
-
-    return root;
+bst::~bst() {
+    clearTree(root);
 }
 
-
-
-bst::bst() {}
-
-
-void bst::InsertNode(BstNode* newNode) {
-    root = Insert(root, newNode);
+void bst::clearTree(BstNode* node) {
+    if (node) {
+        clearTree(node->left);
+        clearTree(node->right);
+        delete node;
+    }
 }
-BstNode* searchBST(BstNode* root, const QString& key) {
-    if (root == nullptr)
-        return nullptr;
 
-    if (root->id.compare(key, Qt::CaseInsensitive) == 0 ||
-        root->fullName.compare(key, Qt::CaseInsensitive) == 0) {
-        return root;
+BstNode* bst::insertHelper(BstNode* node, BstNode* newNode) {
+    if (!node) return newNode;
+
+    if (newNode->key < node->key)
+        node->left = insertHelper(node->left, newNode);
+    else
+        node->right = insertHelper(node->right, newNode);
+
+    return node;
+}
+
+void bst::insert(BstNode* newNode) {
+    if (!newNode) return;
+    newNode->key = newNode->id; // Ensure key is set before insertion
+    root = insertHelper(root, newNode);
+}
+
+void bst::searchHelper(BstNode* node, const QString& searchText, QList<BstNode*>& results) const {
+    if (!node) return;
+
+    if (node->id.contains(searchText, Qt::CaseInsensitive) ||
+        node->fullName.contains(searchText, Qt::CaseInsensitive)) {
+        results.append(node);
     }
 
-    // You can still use ID as a base for ordering in the tree,
-    // but since search needs to compare both, you must search both subtrees.
-    BstNode* leftResult = searchBST(root->left, key);
-    if (leftResult != nullptr) return leftResult;
-
-    return searchBST(root->right, key);
-}
-void searchBSTMultiple(BstNode* root, const QString& key, QList<BstNode*>& results) {
-    if (root == nullptr) return;
-
-    qDebug() << "Checking node:" << root->id << "|" << root->fullName;
-
-    // Use contains() for partial case-insensitive matching
-    if (root->id.contains(key, Qt::CaseInsensitive) ||
-        root->fullName.contains(key, Qt::CaseInsensitive)) {
-        qDebug() << "MATCH FOUND!";
-        results.append(root);
-    }
-
-    // Recursive search in left and right subtrees
-    searchBSTMultiple(root->left, key, results);
-    searchBSTMultiple(root->right, key, results);
+    searchHelper(node->left, searchText, results);
+    searchHelper(node->right, searchText, results);
 }
 
+QList<BstNode*> bst::searchMultiple(const QString& searchText) const {
+    QList<BstNode*> results;
+    searchHelper(root, searchText, results);
+    return results;
+}
+void bst::clear()
+{
+    clearTree(root);
+    root = nullptr;
+}
 

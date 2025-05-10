@@ -51,33 +51,51 @@ MainWindow::MainWindow(QWidget *parent)
     while (query.next()) {
         BstNode* node = new BstNode();
         node->id = query.value(0).toString();
+         node->key = node->id;
         node->fullName = query.value(1).toString();
+          node->key = node->fullName;
         node->suffix = query.value(2).toString();
+           node->key = node->suffix;
         node->ageStr = query.value(3).toString();
+            node->key = node->ageStr;
         node->dateStr = query.value(4).toString();
+             node->key = node->dateStr;
         node->bloodType = query.value(5).toString();
+              node->key = node->bloodType;
         node->civilStatus = query.value(6).toString();
+               node->key = node->civilStatus;
         node->birth = query.value(7).toString();
+                node->key = node->birth;
         node->contact = query.value(8).toString();
+                 node->key = node->contact;
         node->religion = query.value(9).toString();
+                  node->key = node->religion;
         node->nation = query.value(10).toString();
+                   node->key = node->nation;
         node->address = query.value(11).toString();
+                    node->key = node->address;
         node->room = query.value(12).toString();
+                     node->key = node->room;
         node->time1 = query.value(13).toString();
+                      node->key = node->time1;
         node->level = query.value(14).toString();
+                       node->key = node->level;
         node->dateAdmitted = query.value(15).toString();
+                        node->key = node->dateAdmitted;
         node->admin = query.value(16).toString();
+                         node->key = node->admin;
         node->selectedGender = query.value(17).toString();
+                        node->key = node->selectedGender;
 
-        tree.InsertNode(node);  // You should implement this in bst class
+        tree.insert(node);  // You should implement this in bst class
 
     }
 }
 
-
 BstNode* CreateNodeFromUI(Ui::MainWindow* ui) {
     BstNode* newNode = new BstNode();
 
+    // Populate fields from UI
     newNode->id = ui->lineEditID2->text();
     newNode->surname = ui->lineEditSurname->text();
     newNode->firstName = ui->lineEditFirst->text();
@@ -107,8 +125,11 @@ BstNode* CreateNodeFromUI(Ui::MainWindow* ui) {
     QDate birthday = ui->dateEdit->date();
     newNode->dateStr = birthday.toString("yyyy-MM-dd");
 
-    newNode->left = nullptr;
-    newNode->right = nullptr;
+    // CORRECTED: Set the BST key once (should be ID for proper BST ordering)
+    newNode->key = newNode->id;  // This is the only key assignment needed
+
+    // Remove all other key assignments - they're redundant and incorrect
+    // The BST only needs one key value for node comparison
 
     return newNode;
 }
@@ -216,12 +237,7 @@ void MainWindow::on_pushButton_2_clicked()
     }
 
     BstNode* newNode = CreateNodeFromUI(ui);
-    if (!newNode) {
-        QMessageBox::warning(this, "Error", "Failed to create BST node.");
-        return;
-    }
-
-    root = Insert(root, newNode);
+    tree.insert(newNode); // Insert using bst method
 
     QSqlQuery query;
     query.prepare("INSERT INTO finaldb (ID, NAME, SUFFIX, AGE, BIRTHDATE, BLOOD_TYPE, CIVIL_STATUS, BIRTHPLACE, CONTACT_NO, RELIGION, NATIONALITY, ADDRESS, ROOM, TIME_ADMITTED, LEVEL_OF_CARE, DATE_ADMITTED, ADMIN_NAME, SEX) "
@@ -319,53 +335,123 @@ void MainWindow::on_exit1_clicked()
 void MainWindow::on_searchTable_clicked()
 {
     QString searchTxt = ui->searchNameorID->text().trimmed();
-
-    if (searchTxt.isEmpty()) {
-        QMessageBox::warning(this, "Input Error", "Please enter a name or ID to search.");
-        return;
-    }
-
-    QList<BstNode*> results;
-    searchBSTMultiple(root, searchTxt, results);  // New function that collects all matches
+    QList<BstNode*> results = tree.searchMultiple(searchTxt);
 
     ui->tableWidget->setRowCount(0);
-
     if (results.isEmpty()) {
         QMessageBox::information(this, "Not Found", "No matching records found.");
-        ui->searchNameorID->clear();
         return;
     }
 
+    // Set column count to match your data fields (18 columns)
+    ui->tableWidget->setColumnCount(18);
     ui->tableWidget->setRowCount(results.size());
-    ui->tableWidget->setColumnCount(18); // Adjust if you have more/less columns
 
     for (int i = 0; i < results.size(); ++i) {
-        BstNode* result = results[i];
-        int col = 0;
+        BstNode* node = results[i];
+        int col = 0;  // Initialize column counter for each row
 
-        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->id));
-        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->fullName));
-        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->suffix));
-        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->ageStr));
-        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->dateStr));
-        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->bloodType));
-        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->civilStatus));
-        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->birth));
-        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->contact));
-        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->religion));
-        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->nation));
-        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->address));
-        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->room));
-        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->time1));
-        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->level));
-        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->dateAdmitted));
-        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->admin));
-        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(result->selectedGender));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(node->id));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(node->fullName));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(node->suffix));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(node->ageStr));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(node->dateStr));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(node->bloodType));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(node->civilStatus));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(node->birth));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(node->contact));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(node->religion));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(node->nation));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(node->address));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(node->room));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(node->time1));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(node->level));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(node->dateAdmitted));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(node->admin));
+        ui->tableWidget->setItem(i, col++, new QTableWidgetItem(node->selectedGender));
     }
 };
-
 
 void MainWindow::on_pushbuttonEXIT_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
+}
+void MainWindow::clearTable()
+{
+    ui->tableWidget->clearContents();
+    ui->tableWidget->setRowCount(0);
+}
+void MainWindow::loadDatabaseIntoBST()
+{
+    QSqlQuery query;
+    if (!query.exec("SELECT ID, NAME, SUFFIX, AGE, BIRTHDATE, BLOOD_TYPE, CIVIL_STATUS, BIRTHPLACE, CONTACT_NO, RELIGION, NATIONALITY, ADDRESS, ROOM, TIME_ADMITTED, LEVEL_OF_CARE, DATE_ADMITTED, ADMIN_NAME, SEX FROM finaldb")) {
+        qDebug() << "Query error:" << query.lastError().text();
+        return;
+    }
+
+    while (query.next()) {
+        BstNode* node = new BstNode();
+        while (query.next()) {
+            BstNode* node = new BstNode();
+            node->id = query.value(0).toString();
+
+            node->fullName = query.value(1).toString();
+
+            node->suffix = query.value(2).toString();
+
+            node->ageStr = query.value(3).toString();
+
+            node->dateStr = query.value(4).toString();
+
+            node->bloodType = query.value(5).toString();
+
+            node->civilStatus = query.value(6).toString();
+
+            node->birth = query.value(7).toString();
+
+            node->contact = query.value(8).toString();
+
+            node->religion = query.value(9).toString();
+
+            node->nation = query.value(10).toString();
+
+            node->address = query.value(11).toString();
+
+            node->room = query.value(12).toString();
+
+            node->time1 = query.value(13).toString();
+
+            node->level = query.value(14).toString();
+
+            node->dateAdmitted = query.value(15).toString();
+
+            node->admin = query.value(16).toString();
+
+            node->selectedGender = query.value(17).toString();
+
+            tree.insert(node);
+        }
+    }
+}
+void MainWindow::reloadDatabase()
+{
+    tree.clear();  // Use your actual member name
+    loadDatabaseIntoBST();
+};
+
+void MainWindow::on_refreshButton_clicked()
+{
+    // Clear existing data
+    tree.clear();
+    ui->tableWidget->clearContents();
+    ui->tableWidget->setRowCount(0);
+
+    // Reload from database
+    loadDatabaseIntoBST();
+
+    // Refresh the table view if we're on the list page
+    if(ui->stackedWidget->currentIndex() == 3) {  // Assuming 3 is your table page index
+        on_list_clicked();
+    }
+
 }
