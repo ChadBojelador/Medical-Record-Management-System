@@ -455,3 +455,54 @@ void MainWindow::on_refreshButton_clicked()
     }
 
 }
+
+void MainWindow::on_deleteButton_clicked()
+{
+    // Get selected row
+    QModelIndexList selected = ui->tableWidget->selectionModel()->selectedRows();
+    if (selected.isEmpty()) {
+        QMessageBox::warning(this, "Error", "Please select a record to delete.");
+        return;
+    }
+
+    // Get ID from first column of selected row
+    int row = selected.first().row();
+    QString id = ui->tableWidget->item(row, 0)->text();
+
+    // Confirm deletion
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Confirm Delete",
+                                  "Delete record for ID: " + id + "?",
+                                  QMessageBox::Yes|QMessageBox::No);
+
+    if (reply != QMessageBox::Yes) return;
+
+    // Delete from database
+    QSqlQuery query;
+    query.prepare("DELETE FROM finaldb WHERE ID = ?");
+    query.addBindValue(id);
+
+    if (!query.exec()) {
+        QMessageBox::critical(this, "Error",
+                              "Database deletion failed: " + query.lastError().text());
+        return;
+    }
+
+    // Delete from BST
+    tree.deleteNode(id);  // Implement this in BST class
+
+    // Refresh UI
+    if (ui->stackedWidget->currentIndex() == 3) {  // If on table view
+        on_list_clicked();  // Refresh table
+    }
+
+    QMessageBox::information(this, "Success", "Record deleted successfully.");
+}
+
+void MainWindow::on_checkBox_Sort_stateChanged(int state)
+{
+    Q_UNUSED(state);
+    on_list_clicked(); // Refresh the table view with new sorting
+}
+
+

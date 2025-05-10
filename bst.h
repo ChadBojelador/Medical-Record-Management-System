@@ -44,9 +44,9 @@ public:
     // Core BST operations
     void insert(BstNode* newNode);
     QList<BstNode*> searchMultiple(const QString& searchText) const;
-
+  void deleteNode(const QString& key);
     void clear();
-
+    QList<BstNode*> getAllNodes() const;
 private:
     BstNode* root;
 
@@ -54,7 +54,9 @@ private:
     BstNode* insertHelper(BstNode* node, BstNode* newNode);
     void searchHelper(BstNode* node, const QString& searchText, QList<BstNode*>& results) const;
     void clearTree(BstNode* node);
-
+    BstNode* deleteHelper(BstNode* node, const QString& key);
+    BstNode* minValueNode(BstNode* node);
+        void inOrderTraversal(BstNode* node, QList<BstNode*>& list) const;
 };
 
 #endif // BST_H

@@ -55,3 +55,60 @@ void bst::clear()
     root = nullptr;
 }
 
+BstNode* bst::deleteHelper(BstNode* node, const QString& key)
+{
+    if (!node) return node;
+
+    if (key < node->id)
+        node->left = deleteHelper(node->left, key);
+    else if (key > node->id)
+        node->right = deleteHelper(node->right, key);
+    else {
+        // Node with one or no child
+        if (!node->left) {
+            BstNode* temp = node->right;
+            delete node;
+            return temp;
+        }
+        else if (!node->right) {
+            BstNode* temp = node->left;
+            delete node;
+            return temp;
+        }
+
+        // Node with two children
+        BstNode* temp = minValueNode(node->right);
+        node->id = temp->id;
+        // Copy all data fields
+        node->fullName = temp->fullName;
+        node->ageStr = temp->ageStr;
+        // ... copy all other fields ...
+        node->right = deleteHelper(node->right, temp->id);
+    }
+    return node;
+}
+
+BstNode* bst::minValueNode(BstNode* node)
+{
+    BstNode* current = node;
+    while (current && current->left)
+        current = current->left;
+    return current;
+}
+
+void bst::deleteNode(const QString& key)
+{
+    root = deleteHelper(root, key);
+}
+QList<BstNode*> bst::getAllNodes() const {
+    QList<BstNode*> nodes;
+    inOrderTraversal(root, nodes);
+    return nodes;
+}
+
+void bst::inOrderTraversal(BstNode* node, QList<BstNode*>& list) const {
+    if (!node) return;
+    inOrderTraversal(node->left, list);
+    list.append(node);
+    inOrderTraversal(node->right, list);
+}

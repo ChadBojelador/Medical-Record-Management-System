@@ -41,6 +41,10 @@ private slots:
 
     void on_refreshButton_clicked();
 
+    void on_deleteButton_clicked();
+
+    void on_checkBox_Sort_checkStateChanged(const Qt::CheckState &arg1);
+
 private:
     Ui::MainWindow *ui;
     QSqlDatabase db;
