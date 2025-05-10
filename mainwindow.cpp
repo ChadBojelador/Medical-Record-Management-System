@@ -50,44 +50,45 @@ MainWindow::MainWindow(QWidget *parent)
     // 3. Fetch rows and insert into BST
     while (query.next()) {
         BstNode* node = new BstNode();
+          node->key = node->id;
         node->id = query.value(0).toString();
-         node->key = node->id;
-        node->fullName = query.value(1).toString();
-          node->key = node->fullName;
-        node->suffix = query.value(2).toString();
-           node->key = node->suffix;
-        node->ageStr = query.value(3).toString();
-            node->key = node->ageStr;
-        node->dateStr = query.value(4).toString();
-             node->key = node->dateStr;
-        node->bloodType = query.value(5).toString();
-              node->key = node->bloodType;
-        node->civilStatus = query.value(6).toString();
-               node->key = node->civilStatus;
-        node->birth = query.value(7).toString();
-                node->key = node->birth;
-        node->contact = query.value(8).toString();
-                 node->key = node->contact;
-        node->religion = query.value(9).toString();
-                  node->key = node->religion;
-        node->nation = query.value(10).toString();
-                   node->key = node->nation;
-        node->address = query.value(11).toString();
-                    node->key = node->address;
-        node->room = query.value(12).toString();
-                     node->key = node->room;
-        node->time1 = query.value(13).toString();
-                      node->key = node->time1;
-        node->level = query.value(14).toString();
-                       node->key = node->level;
-        node->dateAdmitted = query.value(15).toString();
-                        node->key = node->dateAdmitted;
-        node->admin = query.value(16).toString();
-                         node->key = node->admin;
-        node->selectedGender = query.value(17).toString();
-                        node->key = node->selectedGender;
 
-        tree.insert(node);  // You should implement this in bst class
+        node->fullName = query.value(1).toString();
+
+        node->suffix = query.value(2).toString();
+
+        node->ageStr = query.value(3).toString();
+
+        node->dateStr = query.value(4).toString();
+
+        node->bloodType = query.value(5).toString();
+
+        node->civilStatus = query.value(6).toString();
+
+        node->birth = query.value(7).toString();
+
+        node->contact = query.value(8).toString();
+
+        node->religion = query.value(9).toString();
+
+        node->nation = query.value(10).toString();
+
+        node->address = query.value(11).toString();
+
+        node->room = query.value(12).toString();
+
+        node->time1 = query.value(13).toString();
+
+        node->level = query.value(14).toString();
+
+        node->dateAdmitted = query.value(15).toString();
+
+        node->admin = query.value(16).toString();
+
+        node->selectedGender = query.value(17).toString();
+
+
+        tree.insert(node);
 
     }
 }
