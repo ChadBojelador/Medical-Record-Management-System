@@ -149,7 +149,7 @@ void MainWindow::on_pushButtonLogin_clicked()
 
         if (enteredID =="admin123"){
             ui->stackedWidget->setCurrentIndex(1);
-            QMessageBox::warning(this, "Welcome", "Logged in as Patient");
+            QMessageBox::warning(this, "Welcome", "Logged in as Admin");
         }
         else{
             ui->lineEditID->clear();
@@ -537,9 +537,19 @@ void MainWindow::showPatientData(const QString& patientID)
         }
 
         if(patientNode) {
-            // Populate table with single record
+            // Make table read-only
+            ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
             ui->tableWidget->setRowCount(1);
             int col = 0;
+
+            // Create non-editable items
+            auto createReadOnlyItem = [](const QString& text) {
+                QTableWidgetItem* item = new QTableWidgetItem(text);
+                item->setFlags(item->flags() ^ Qt::ItemIsEditable);
+                return item;
+            };
+
+
 
             ui->tableWidget->setItem(0, col++, new QTableWidgetItem(patientNode->id));
             ui->tableWidget->setItem(0, col++, new QTableWidgetItem(patientNode->fullName));
@@ -559,6 +569,8 @@ void MainWindow::showPatientData(const QString& patientID)
             ui->tableWidget->setItem(0, col++, new QTableWidgetItem(patientNode->dateAdmitted));
             ui->tableWidget->setItem(0, col++, new QTableWidgetItem(patientNode->admin));
             ui->tableWidget->setItem(0, col++, new QTableWidgetItem(patientNode->selectedGender));
+                   ui->tableWidget->setFocusPolicy(Qt::NoFocus);
         }
     }
 }
+
