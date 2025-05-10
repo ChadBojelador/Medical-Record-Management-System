@@ -112,3 +112,4 @@ void bst::inOrderTraversal(BstNode* node, QList<BstNode*>& list) const {
     list.append(node);
     inOrderTraversal(node->right, list);
 }
+

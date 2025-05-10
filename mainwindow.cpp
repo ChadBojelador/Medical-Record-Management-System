@@ -160,22 +160,34 @@ void MainWindow::on_pushButtonLogin_clicked()
     }
 
     else if (ui->radioPatient->isChecked()){
-        QString enteredID = ui->lineEditID->text();
+        QString enteredID = ui->lineEditID->text().trimmed();
 
-        if(enteredID == "PT-108863"){
-            ui->stackedWidget->setCurrentIndex(2);
+        // Search BST for patient ID
+        QList<BstNode*> results = tree.searchMultiple(enteredID);
+        bool validPatient = false;
+
+        foreach(BstNode* node, results) {
+            if(node->id == enteredID) {
+                validPatient = true;
+                break;
+            }
+        }
+
+        if(validPatient) {
+            ui->stackedWidget->setCurrentIndex(3);  // Go to table view
+            showPatientData(enteredID);
             QMessageBox::information(this, "Welcome", "Logged in as Patient.");
         }
-        else{
+        else {
             ui->lineEditID->clear();
             ui->lineEditID->setPlaceholderText("Incorrect Patient ID");
             ui->lineEditID->setStyleSheet("border: 2px solid red;");
             QMessageBox::warning(this, "Login Failed", "Incorrect Patient ID!");
         }
     }
-
-
 }
+
+
 
 
 void MainWindow::on_lineEditID_textChanged(const QString &text)
@@ -505,4 +517,48 @@ void MainWindow::on_checkBox_Sort_stateChanged(int state)
     on_list_clicked(); // Refresh the table view with new sorting
 }
 
+void MainWindow::showPatientData(const QString& patientID)
+{
+    // Search for the specific patient
+    QList<BstNode*> results = tree.searchMultiple(patientID);
 
+    // Clear and prepare table
+    ui->tableWidget->setRowCount(0);
+    ui->tableWidget->setColumnCount(18);
+
+    if(!results.isEmpty()) {
+        // Find exact match
+        BstNode* patientNode = nullptr;
+        foreach(BstNode* node, results) {
+            if(node->id == patientID) {
+                patientNode = node;
+                break;
+            }
+        }
+
+        if(patientNode) {
+            // Populate table with single record
+            ui->tableWidget->setRowCount(1);
+            int col = 0;
+
+            ui->tableWidget->setItem(0, col++, new QTableWidgetItem(patientNode->id));
+            ui->tableWidget->setItem(0, col++, new QTableWidgetItem(patientNode->fullName));
+            ui->tableWidget->setItem(0, col++, new QTableWidgetItem(patientNode->suffix));
+            ui->tableWidget->setItem(0, col++, new QTableWidgetItem(patientNode->ageStr));
+            ui->tableWidget->setItem(0, col++, new QTableWidgetItem(patientNode->dateStr));
+            ui->tableWidget->setItem(0, col++, new QTableWidgetItem(patientNode->bloodType));
+            ui->tableWidget->setItem(0, col++, new QTableWidgetItem(patientNode->civilStatus));
+            ui->tableWidget->setItem(0, col++, new QTableWidgetItem(patientNode->birth));
+            ui->tableWidget->setItem(0, col++, new QTableWidgetItem(patientNode->contact));
+            ui->tableWidget->setItem(0, col++, new QTableWidgetItem(patientNode->religion));
+            ui->tableWidget->setItem(0, col++, new QTableWidgetItem(patientNode->nation));
+            ui->tableWidget->setItem(0, col++, new QTableWidgetItem(patientNode->address));
+            ui->tableWidget->setItem(0, col++, new QTableWidgetItem(patientNode->room));
+            ui->tableWidget->setItem(0, col++, new QTableWidgetItem(patientNode->time1));
+            ui->tableWidget->setItem(0, col++, new QTableWidgetItem(patientNode->level));
+            ui->tableWidget->setItem(0, col++, new QTableWidgetItem(patientNode->dateAdmitted));
+            ui->tableWidget->setItem(0, col++, new QTableWidgetItem(patientNode->admin));
+            ui->tableWidget->setItem(0, col++, new QTableWidgetItem(patientNode->selectedGender));
+        }
+    }
+}
