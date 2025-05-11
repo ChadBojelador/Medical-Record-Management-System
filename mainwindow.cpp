@@ -357,11 +357,13 @@ void MainWindow::on_pushButton_2_clicked()
         ui->lineEditbirth->clear();
         ui->lineEditReligion->clear();
         ui->lineEditNation->clear();
-        ui->lineEditRoom->clear();
-        ui->lineEditTime1->clear();
-        ui->lineEditLevel->clear();
-        ui->lineEditDate->clear();
-        ui->lineEditAdmin->clear();
+       // ui->lineEditRoom->clear();
+       // ui->lineEditTime1->clear();
+       // ui->lineEditLevel->clear();
+      //  ui->lineEditDate->clear();
+       // ui->lineEditAdmin->clear();
+           ui->lineEditContact->clear();
+        ui->lineEditAddress->clear();
         return; // ✅ Suggestion 1: stop after success
     } else {
         // Rollback BST insertion if database fails
@@ -383,11 +385,14 @@ void MainWindow::on_list_clicked()
 
     // Fetch data sorted alphabetically by NAME (A-Z)
     QSqlQuery query(db);
-    query.prepare("SELECT * FROM finaldb ORDER BY NAME ASC"); // Explicit ascending order
+    query.prepare("SELECT * FROM finaldb ORDER BY NAME ASC");
 
     if (query.exec()) {
         ui->tableWidget->setRowCount(0); // Clear existing data
         int row = 0;
+
+        // Disable sorting while populating to prevent interference
+        ui->tableWidget->setSortingEnabled(false);
 
         while (query.next()) {
             ui->tableWidget->insertRow(row);
@@ -397,13 +402,14 @@ void MainWindow::on_list_clicked()
             row++;
         }
 
-        // Explicitly sort by name column (column 1) ascending
+        // Force ascending sort on the NAME column (column index 1)
+        ui->tableWidget->setSortingEnabled(true);
+        ui->tableWidget->horizontalHeader()->setSortIndicator(1, Qt::AscendingOrder);
         ui->tableWidget->sortByColumn(1, Qt::AscendingOrder);
     } else {
         qDebug() << "Error retrieving data:" << query.lastError().text();
     }
-
-    db.close();
+        db.close();
 }
 
 

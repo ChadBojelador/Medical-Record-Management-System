@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="aa">
      <widget class="QLineEdit" name="lineEditID">
@@ -493,38 +493,6 @@
         <widget class="QLineEdit" name="lineEditAddress"/>
        </item>
       </layout>
-     </widget>
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>500</y>
-        <width>661</width>
-        <height>201</height>
-       </rect>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="currentIndex">
-       <number>1</number>
-      </property>
-      <property name="documentMode">
-       <bool>false</bool>
-      </property>
-      <widget class="QWidget" name="tab">
-       <attribute name="title">
-        <string>History</string>
-       </attribute>
-      </widget>
-      <widget class="QWidget" name="tab_2">
-       <attribute name="title">
-        <string>Other Information</string>
-       </attribute>
-      </widget>
      </widget>
      <widget class="Line" name="line_2">
       <property name="geometry">
