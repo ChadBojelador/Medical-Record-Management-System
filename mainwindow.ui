@@ -872,38 +872,6 @@
        <enum>Qt::Orientation::Vertical</enum>
       </property>
      </widget>
-     <widget class="QTabWidget" name="tabWidget_2">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>480</y>
-        <width>661</width>
-        <height>201</height>
-       </rect>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="currentIndex">
-       <number>1</number>
-      </property>
-      <property name="documentMode">
-       <bool>false</bool>
-      </property>
-      <widget class="QWidget" name="tab_5">
-       <attribute name="title">
-        <string>History</string>
-       </attribute>
-      </widget>
-      <widget class="QWidget" name="tab_6">
-       <attribute name="title">
-        <string>Other Information</string>
-       </attribute>
-      </widget>
-     </widget>
      <widget class="QLabel" name="label_28">
       <property name="geometry">
        <rect>
@@ -1200,7 +1168,11 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="lineEditSurname_3"/>
+        <widget class="QLineEdit" name="lineEditSurname_3">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_61">
@@ -1210,7 +1182,11 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLineEdit" name="lineEditMI_3"/>
+        <widget class="QLineEdit" name="lineEditMI_3">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="label_62">
@@ -1700,25 +1676,14 @@
       </column>
       <column>
        <property name="text">
+        <string>Admin Name</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
         <string>Date Admitted</string>
        </property>
       </column>
-     </widget>
-     <widget class="QCheckBox" name="checkBox_Sort">
-      <property name="geometry">
-       <rect>
-        <x>130</x>
-        <y>100</y>
-        <width>161</width>
-        <height>26</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Sort by Name: A-Z</string>
-      </property>
-      <attribute name="buttonGroup">
-       <string notr="true">buttonGroup_2</string>
-      </attribute>
      </widget>
      <widget class="QPushButton" name="pushbuttonEXIT">
       <property name="geometry">

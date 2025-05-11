@@ -42,8 +42,6 @@ private slots:
     void on_refreshButton_clicked();
 
     void on_deleteButton_clicked();
-   void on_checkBox_Sort_stateChanged(int arg1);
-
 
    void on_editButton_clicked();
 

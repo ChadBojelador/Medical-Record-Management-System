@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    ui->tableWidget->setSortingEnabled(true);
+
     ui->tableWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     ui->tableWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 
@@ -379,26 +381,26 @@ void MainWindow::on_list_clicked()
     ui->stackedWidget->setCurrentIndex(3);
     db.open();
 
-    // Prepare and execute the query to fetch data
+    // Fetch data sorted alphabetically by NAME (A-Z)
     QSqlQuery query(db);
-    query.prepare("SELECT * FROM finaldb");
+    query.prepare("SELECT * FROM finaldb ORDER BY NAME ASC"); // Explicit ascending order
 
     if (query.exec()) {
+        ui->tableWidget->setRowCount(0); // Clear existing data
         int row = 0;
 
-        // Set the number of rows and columns in the table
-        ui->tableWidget->setRowCount(query.size()); // Set number of rows
-        ui->tableWidget->setColumnCount(query.record().count()); // Set number of columns
-
-        // Iterate through the results and populate the table
         while (query.next()) {
+            ui->tableWidget->insertRow(row);
             for (int col = 0; col < query.record().count(); ++col) {
                 ui->tableWidget->setItem(row, col, new QTableWidgetItem(query.value(col).toString()));
             }
-            row++; // Increment row after inserting data
+            row++;
         }
+
+        // Explicitly sort by name column (column 1) ascending
+        ui->tableWidget->sortByColumn(1, Qt::AscendingOrder);
     } else {
-        qDebug() << "Error retrieving data: " << query.lastError().text();
+        qDebug() << "Error retrieving data:" << query.lastError().text();
     }
 
     db.close();
@@ -587,11 +589,6 @@ void MainWindow::on_deleteButton_clicked()
     QMessageBox::information(this, "Success", "Record deleted successfully.");
 }
 
-void MainWindow::on_checkBox_Sort_stateChanged(int state)
-{
-    Q_UNUSED(state);
-    on_list_clicked(); // Refresh the table view with new sorting
-}
 
 void MainWindow::showPatientData(const QString& patientID)
 {
