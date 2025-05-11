@@ -112,4 +112,14 @@ void bst::inOrderTraversal(BstNode* node, QList<BstNode*>& list) const {
     list.append(node);
     inOrderTraversal(node->right, list);
 }
+BstNode* bst::search(const QString& key) {
+    return searchRecursive(root, key);
+}
 
+BstNode* bst::searchRecursive(BstNode* node, const QString& key) {
+    if (node == nullptr || node->key == key)
+        return node;
+    if (key < node->key)
+        return searchRecursive(node->left, key);
+    return searchRecursive(node->right, key);
+}

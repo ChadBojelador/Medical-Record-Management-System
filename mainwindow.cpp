@@ -6,13 +6,14 @@
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QDebug>
-
+#include <QScrollArea>
+#include <QScrollBar>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , isEditing(false)
 {
     ui->setupUi(this);
-
 
     ui->tableWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     ui->tableWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -248,8 +249,77 @@ void MainWindow::on_pushButton_2_clicked()
         QMessageBox::warning(this, "Input Error", "Please enter a valid age.");
         return;
     }
+    if (isEditing) {
+        // Edit existing record
+        BstNode* existingNode = tree.search(currentEditId);
+        if (!existingNode) {
+            QMessageBox::warning(this, "Error", "Record not found!");
+            return;
+        }
 
+        // Update BST node
+        existingNode->id = id;
+        existingNode->surname = surname;
+        existingNode->firstName = firstName;
+        existingNode->middleName = middleName;
+        existingNode->birth = birth;
+        existingNode->religion = religion;
+        existingNode->nation = nation;
+        existingNode->room = room;
+        existingNode->time1 = time1;
+        existingNode->level = level;
+        existingNode->admin = admin;
+        existingNode->ageStr = ageStr;
+        existingNode->dateAdmitted = dateAdmitted;
+        existingNode->contact = contact;
+        existingNode->address = address;
+        existingNode->fullName = fullName;
+        existingNode->suffix = suffix;
+        existingNode->bloodType = bloodType;
+        existingNode->civilStatus = civilStatus;
+        existingNode->dateStr = dateStr;
+        existingNode->selectedGender = selectedGender;
+
+        QSqlQuery query;
+        query.prepare("UPDATE finaldb SET ID=?, NAME=?, SUFFIX=?, AGE=?, BIRTHDATE=?, BLOOD_TYPE=?, CIVIL_STATUS=?, "
+                      "BIRTHPLACE=?, CONTACT_NO=?, RELIGION=?, NATIONALITY=?, ADDRESS=?, ROOM=?, TIME_ADMITTED=?, "
+                      "LEVEL_OF_CARE=?, DATE_ADMITTED=?, ADMIN_NAME=?, SEX=? WHERE ID=?");
+
+        query.addBindValue(id);
+        query.addBindValue(fullName);
+        query.addBindValue(suffix);
+        query.addBindValue(ageStr);
+        query.addBindValue(dateStr);
+        query.addBindValue(bloodType);
+        query.addBindValue(civilStatus);
+        query.addBindValue(birth);
+        query.addBindValue(contact);
+        query.addBindValue(religion);
+        query.addBindValue(nation);
+        query.addBindValue(address);
+        query.addBindValue(room);
+        query.addBindValue(time1);
+        query.addBindValue(level);
+        query.addBindValue(dateAdmitted);
+        query.addBindValue(admin);
+        query.addBindValue(selectedGender);
+        query.addBindValue(currentEditId);  // Original ID for WHERE clause
+
+        if (query.exec()) {
+            QMessageBox::information(this, "Success", "Record updated!");
+            isEditing = false;
+            currentEditId.clear();
+            ui->lineEditID2->setReadOnly(false);
+        } else {
+            QMessageBox::critical(this, "Error", "Update failed: " + query.lastError().text());
+        }
+         } else {
     BstNode* newNode = CreateNodeFromUI(ui);
+             if (tree.search(newNode->id)) {
+                 QMessageBox::warning(this, "Error", "ID already exists!");
+                 delete newNode;
+                 return;
+             }
     tree.insert(newNode); // Insert using bst method
 
     QSqlQuery query;
@@ -276,29 +346,34 @@ void MainWindow::on_pushButton_2_clicked()
     query.bindValue(":gender", selectedGender);
 
     if (query.exec()) {
-        QMessageBox::information(this, "Success", "Student record added successfully.");
+        QMessageBox::information(this, "Success", "Record added successfully.");
+
+        ui->lineEditSurname->clear();
+        ui->lineEditFirst->clear();
+        ui->lineEditMI->clear();
+        ui->lineEditID2->clear();
+        ui->lineEditbirth->clear();
+        ui->lineEditReligion->clear();
+        ui->lineEditNation->clear();
+        ui->lineEditRoom->clear();
+        ui->lineEditTime1->clear();
+        ui->lineEditLevel->clear();
+        ui->lineEditDate->clear();
+        ui->lineEditAdmin->clear();
         return; // ✅ Suggestion 1: stop after success
     } else {
-        QMessageBox::warning(this, "Error", "Failed to add record: " + query.lastError().text());
+        // Rollback BST insertion if database fails
+        tree.deleteNode(newNode->id);
+        delete newNode;
+        QMessageBox::critical(this, "Error", "Insert failed: " + query.lastError().text());
     }
-
-
-    /*
-    ui->lineEditSurname->clear();
-    ui->lineEditFirst->clear();
-    ui->lineEditMI->clear();
-    ui->lineEditID2->clear();
-    ui->lineEditbirth->clear();
-    ui->lineEditReligion->clear();
-    ui->lineEditNation->clear();
-    ui->lineEditRoom->clear();
-    ui->lineEditTime1->clear();
-    ui->lineEditLevel->clear();
-    ui->lineEditDate->clear();
-    ui->lineEditAdmin->clear();
-*/
 }
-
+// Refresh data in both cases
+reloadDatabase();
+if(ui->stackedWidget->currentIndex() == 3) {
+    on_list_clicked();
+}
+}
 void MainWindow::on_list_clicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
@@ -574,4 +649,125 @@ void MainWindow::showPatientData(const QString& patientID)
         }
     }
 }
+void MainWindow::on_editButton_clicked()
+{
+    QModelIndexList selected = ui->tableWidget->selectionModel()->selectedRows(0);
+    if (selected.isEmpty()) {
+        QMessageBox::warning(this, "Error", "Please select a record to edit.");
+        return;
+    }
+
+    int row = selected.first().row();
+    QString id = ui->tableWidget->item(row, 0)->text();
+
+    BstNode* node = tree.search(id);
+    if (!node) {
+        QMessageBox::warning(this, "Error", "Patient record not found in system.");
+        return;
+    }
+
+    // Populate all UI fields
+    ui->lineEditID2->setText(node->id);
+    ui->lineEditSurname->setText(node->surname);
+    ui->lineEditFirst->setText(node->firstName);
+    ui->lineEditMI->setText(node->middleName);
+    ui->lineEditbirth->setText(node->birth);
+    ui->lineEditReligion->setText(node->religion);
+    ui->lineEditNation->setText(node->nation);
+    ui->lineEditRoom->setText(node->room);
+    ui->lineEditTime1->setText(node->time1);
+    ui->lineEditLevel->setText(node->level);
+    ui->lineEditDate->setText(node->dateAdmitted);
+    ui->lineEditAdmin->setText(node->admin);
+    ui->lineEditContact->setText(node->contact);
+    ui->lineEditAddress->setText(node->address);
+
+    // Handle numeric fields
+    bool ageOk;
+    int age = node->ageStr.toInt(&ageOk);
+    if (ageOk) ui->age->setValue(age);
+
+    // Handle gender radio buttons
+    if (node->selectedGender == "Male") {
+        ui->radioMale->setChecked(true);
+    } else if (node->selectedGender == "Female") {
+        ui->radioFemale->setChecked(true);
+    }
+
+    // Handle combobox selections
+    ui->suffix->setCurrentText(node->suffix);
+    ui->bloodType->setCurrentText(node->bloodType);
+    ui->civilStatus->setCurrentText(node->civilStatus);
+
+    // Handle date fields
+    QDate birthDate = QDate::fromString(node->dateStr, "yyyy-MM-dd");
+    if (birthDate.isValid()) {
+        ui->dateEdit->setDate(birthDate);
+    }
+
+    // Handle checkboxes (assuming consent1/consent2 are checkboxes)
+    // You'll need to add these fields to your BstNode if needed
+
+    // Set edit mode
+    isEditing = true;
+    currentEditId = id;
+    ui->lineEditID2->setReadOnly(true);
+    ui->stackedWidget->setCurrentIndex(1);  // Switch to edit form
+
+    // Scroll to top of form
+    // Scroll to top of form
+    QScrollArea* scrollArea = qobject_cast<QScrollArea*>(ui->stackedWidget->currentWidget());
+    if (scrollArea && scrollArea->verticalScrollBar()) {
+        scrollArea->verticalScrollBar()->setValue(0);
+    }
+}
+
+
+    void MainWindow::onTableDoubleClicked(int row, int column)
+    {
+        Q_UNUSED(column);
+        QString patientId = ui->tableWidget->item(row, 0)->text();
+        showEditFormWithData(patientId);
+    }
+    void MainWindow::showEditFormWithData(const QString& patientId)
+    {
+        BstNode* node = tree.search(patientId);
+        if (!node) return;
+
+        // Populate all fields
+        ui->lineEditID2->setText(node->id);
+        ui->lineEditSurname->setText(node->surname);
+        ui->lineEditFirst->setText(node->firstName);
+        ui->lineEditMI->setText(node->middleName);
+        ui->lineEditbirth->setText(node->birth);
+        ui->lineEditReligion->setText(node->religion);
+        ui->lineEditNation->setText(node->nation);
+        ui->lineEditRoom->setText(node->room);
+        ui->lineEditTime1->setText(node->time1);
+        ui->lineEditLevel->setText(node->level);
+        ui->lineEditDate->setText(node->dateAdmitted);
+        ui->lineEditAdmin->setText(node->admin);
+        ui->lineEditContact->setText(node->contact);
+        ui->lineEditAddress->setText(node->address);
+        ui->age->setValue(node->ageStr.toInt());
+
+        // Set radio buttons
+        if (node->selectedGender == "Male") ui->radioMale->setChecked(true);
+        else if (node->selectedGender == "Female") ui->radioFemale->setChecked(true);
+
+        // Set comboboxes
+        ui->suffix->setCurrentText(node->suffix);
+        ui->bloodType->setCurrentText(node->bloodType);
+        ui->civilStatus->setCurrentText(node->civilStatus);
+
+        // Set date
+        QDate birthDate = QDate::fromString(node->dateStr, "yyyy-MM-dd");
+        ui->dateEdit->setDate(birthDate);
+
+        // Switch to edit form
+        ui->stackedWidget->setCurrentIndex(1);  // Assuming 1 is your input form
+        isEditing = true;
+        currentEditId = patientId;
+        ui->lineEditID2->setReadOnly(true);
+    }
 

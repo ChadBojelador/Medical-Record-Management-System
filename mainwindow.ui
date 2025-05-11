@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="aa">
      <widget class="QLineEdit" name="lineEditID">
@@ -1561,8 +1561,18 @@
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="4">
+       <item row="0" column="5">
         <layout class="QHBoxLayout" name="horizontalLayout_6"/>
+       </item>
+       <item row="0" column="3">
+        <widget class="QPushButton" name="addpatient">
+         <property name="text">
+          <string>Add Patient</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="searchNameorID"/>
        </item>
        <item row="0" column="2">
         <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -1583,13 +1593,6 @@
          </item>
         </layout>
        </item>
-       <item row="0" column="3">
-        <widget class="QPushButton" name="addpatient">
-         <property name="text">
-          <string>Add Patient</string>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="0">
         <widget class="QLabel" name="label_45">
          <property name="text">
@@ -1597,8 +1600,12 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="searchNameorID"/>
+       <item row="0" column="4">
+        <widget class="QPushButton" name="editButton">
+         <property name="text">
+          <string>Edit Information</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -1716,10 +1723,10 @@
      <widget class="QPushButton" name="pushbuttonEXIT">
       <property name="geometry">
        <rect>
-        <x>1250</x>
+        <x>1240</x>
         <y>670</y>
         <width>61</width>
-        <height>21</height>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
@@ -1729,10 +1736,10 @@
      <widget class="QPushButton" name="refreshButton">
       <property name="geometry">
        <rect>
-        <x>1050</x>
+        <x>1100</x>
         <y>670</y>
-        <width>31</width>
-        <height>29</height>
+        <width>41</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
@@ -1742,14 +1749,14 @@
      <widget class="QPushButton" name="deleteButton">
       <property name="geometry">
        <rect>
-        <x>1180</x>
+        <x>1150</x>
         <y>670</y>
-        <width>51</width>
-        <height>21</height>
+        <width>81</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
-       <string>delete</string>
+       <string>Delete</string>
       </property>
      </widget>
     </widget>

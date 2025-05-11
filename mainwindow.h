@@ -45,7 +45,9 @@ private slots:
    void on_checkBox_Sort_stateChanged(int arg1);
 
 
-private:
+   void on_editButton_clicked();
+
+   private:
     Ui::MainWindow *ui;
     QSqlDatabase db;
     BstNode* root = nullptr;
@@ -53,6 +55,11 @@ private:
     void clearTable();
     void reloadDatabase();
     void loadDatabaseIntoBST();
+    bool isEditing;
+    QString currentEditId;
 void showPatientData(const QString& patientID);
+    void onTableDoubleClicked(int row, int column);
+    void showEditFormWithData(const QString& patientId);
+
 };
 #endif // MAINWINDOW_H
