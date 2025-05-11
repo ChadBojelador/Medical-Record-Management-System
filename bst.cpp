@@ -76,13 +76,33 @@ BstNode* bst::deleteHelper(BstNode* node, const QString& key)
             return temp;
         }
 
-        // Node with two children
+        // Node with two children: Copy all data from successor
         BstNode* temp = minValueNode(node->right);
-        node->id = temp->id;
         // Copy all data fields
+        node->id = temp->id;
+        node->key = temp->key;
         node->fullName = temp->fullName;
+        node->suffix = temp->suffix;
         node->ageStr = temp->ageStr;
-        // ... copy all other fields ...
+        node->dateStr = temp->dateStr;
+        node->bloodType = temp->bloodType;
+        node->civilStatus = temp->civilStatus;
+        node->birth = temp->birth;
+        node->contact = temp->contact;
+        node->religion = temp->religion;
+        node->nation = temp->nation;
+        node->address = temp->address;
+        node->room = temp->room;
+        node->time1 = temp->time1;
+        node->level = temp->level;
+        node->dateAdmitted = temp->dateAdmitted;
+        node->admin = temp->admin;
+        node->selectedGender = temp->selectedGender;
+        node->surname = temp->surname;
+        node->firstName = temp->firstName;
+        node->middleName = temp->middleName;
+
+        // Delete the inorder successor
         node->right = deleteHelper(node->right, temp->id);
     }
     return node;

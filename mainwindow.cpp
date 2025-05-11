@@ -353,16 +353,16 @@ void MainWindow::on_pushButton_2_clicked()
         ui->lineEditSurname->clear();
         ui->lineEditFirst->clear();
         ui->lineEditMI->clear();
-        ui->lineEditID2->clear();
+        //ui->lineEditID2->clear();
         ui->lineEditbirth->clear();
-        ui->lineEditReligion->clear();
-        ui->lineEditNation->clear();
+        //ui->lineEditReligion->clear();
+        //ui->lineEditNation->clear();
        // ui->lineEditRoom->clear();
        // ui->lineEditTime1->clear();
        // ui->lineEditLevel->clear();
       //  ui->lineEditDate->clear();
        // ui->lineEditAdmin->clear();
-           ui->lineEditContact->clear();
+          // ui->lineEditContact->clear();
         ui->lineEditAddress->clear();
         return; // ✅ Suggestion 1: stop after success
     } else {
