@@ -5,8 +5,8 @@
 #include <QList>
 
 struct BstNode {
-    QString key; // Used for BST ordering (ID)
-    // Patient Data Fields
+    QString key;
+
     QString id;
     QString surname;
     QString firstName;

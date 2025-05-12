@@ -24,14 +24,14 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="aa">
      <widget class="QLineEdit" name="lineEditID">
       <property name="geometry">
        <rect>
         <x>570</x>
-        <y>490</y>
+        <y>460</y>
         <width>251</width>
         <height>41</height>
        </rect>
@@ -46,7 +46,7 @@
       <property name="geometry">
        <rect>
         <x>840</x>
-        <y>490</y>
+        <y>460</y>
         <width>111</width>
         <height>41</height>
        </rect>
@@ -63,27 +63,27 @@
      <widget class="QLabel" name="label">
       <property name="geometry">
        <rect>
-        <x>410</x>
-        <y>130</y>
-        <width>721</width>
-        <height>191</height>
+        <x>380</x>
+        <y>160</y>
+        <width>871</width>
+        <height>101</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Baskerville Old Face</family>
-        <pointsize>28</pointsize>
+        <pointsize>71</pointsize>
        </font>
       </property>
       <property name="text">
-       <string>Medical Record Management System</string>
+       <string>PASYENTRACK</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_2">
       <property name="geometry">
        <rect>
         <x>520</x>
-        <y>500</y>
+        <y>470</y>
         <width>63</width>
         <height>20</height>
        </rect>
@@ -101,7 +101,7 @@
       <property name="geometry">
        <rect>
         <x>620</x>
-        <y>420</y>
+        <y>390</y>
         <width>112</width>
         <height>26</height>
        </rect>
@@ -122,7 +122,7 @@
       <property name="geometry">
        <rect>
         <x>740</x>
-        <y>420</y>
+        <y>390</y>
         <width>112</width>
         <height>26</height>
        </rect>
@@ -138,6 +138,44 @@
       <attribute name="buttonGroup">
        <string notr="true">buttonGroup</string>
       </attribute>
+     </widget>
+     <widget class="QLabel" name="label_17">
+      <property name="geometry">
+       <rect>
+        <x>600</x>
+        <y>130</y>
+        <width>361</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <italic>true</italic>
+        <bold>true</bold>
+        <strikeout>false</strikeout>
+       </font>
+      </property>
+      <property name="text">
+       <string>A MEDICAL RECORD MANAGEMENT SYSTEM</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_29">
+      <property name="geometry">
+       <rect>
+        <x>570</x>
+        <y>260</y>
+        <width>391</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <italic>true</italic>
+       </font>
+      </property>
+      <property name="text">
+       <string>&quot;Because every patient deserves to be followed through&quot;</string>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="bb">
@@ -1701,6 +1739,5 @@
  <connections/>
  <buttongroups>
   <buttongroup name="buttonGroup"/>
-  <buttongroup name="buttonGroup_2"/>
  </buttongroups>
 </ui>

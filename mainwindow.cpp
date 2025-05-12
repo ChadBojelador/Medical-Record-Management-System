@@ -42,15 +42,13 @@ MainWindow::MainWindow(QWidget *parent)
     } else {
         QMessageBox::information(nullptr, "Success", "Connected to MySQL database!");
     }
-
-    // 2. Execute SQL SELECT
     QSqlQuery query;
     if (!query.exec("SELECT ID, NAME, SUFFIX, AGE, BIRTHDATE, BLOOD_TYPE, CIVIL_STATUS, BIRTHPLACE, CONTACT_NO, RELIGION, NATIONALITY, ADDRESS, ROOM, TIME_ADMITTED, LEVEL_OF_CARE, DATE_ADMITTED, ADMIN_NAME, SEX FROM finaldb")) {
         qDebug() << "Query error:" << query.lastError().text();
         return;
     }
 
-    // 3. Fetch rows and insert into BST
+
     while (query.next()) {
         BstNode* node = new BstNode();
           node->key = node->id;
@@ -99,7 +97,6 @@ MainWindow::MainWindow(QWidget *parent)
 BstNode* CreateNodeFromUI(Ui::MainWindow* ui) {
     BstNode* newNode = new BstNode();
 
-    // Populate fields from UI
     newNode->id = ui->lineEditID2->text();
     newNode->surname = ui->lineEditSurname->text();
     newNode->firstName = ui->lineEditFirst->text();
@@ -129,11 +126,10 @@ BstNode* CreateNodeFromUI(Ui::MainWindow* ui) {
     QDate birthday = ui->dateEdit->date();
     newNode->dateStr = birthday.toString("yyyy-MM-dd");
 
-    // CORRECTED: Set the BST key once (should be ID for proper BST ordering)
-    newNode->key = newNode->id;  // This is the only key assignment needed
 
-    // Remove all other key assignments - they're redundant and incorrect
-    // The BST only needs one key value for node comparison
+    newNode->key = newNode->id;
+
+
 
     return newNode;
 }
@@ -166,7 +162,7 @@ void MainWindow::on_pushButtonLogin_clicked()
     else if (ui->radioPatient->isChecked()){
         QString enteredID = ui->lineEditID->text().trimmed();
 
-        // Search BST for patient ID
+
         QList<BstNode*> results = tree.searchMultiple(enteredID);
         bool validPatient = false;
 
@@ -353,16 +349,16 @@ void MainWindow::on_pushButton_2_clicked()
         ui->lineEditSurname->clear();
         ui->lineEditFirst->clear();
         ui->lineEditMI->clear();
-        //ui->lineEditID2->clear();
+        ui->lineEditID2->clear();
         ui->lineEditbirth->clear();
-        //ui->lineEditReligion->clear();
-        //ui->lineEditNation->clear();
-       // ui->lineEditRoom->clear();
-       // ui->lineEditTime1->clear();
-       // ui->lineEditLevel->clear();
-      //  ui->lineEditDate->clear();
-       // ui->lineEditAdmin->clear();
-          // ui->lineEditContact->clear();
+        ui->lineEditReligion->clear();
+        ui->lineEditNation->clear();
+       ui->lineEditRoom->clear();
+        ui->lineEditTime1->clear();
+        ui->lineEditLevel->clear();
+      ui->lineEditDate->clear();
+       ui->lineEditAdmin->clear();
+          ui->lineEditContact->clear();
         ui->lineEditAddress->clear();
         return; // ✅ Suggestion 1: stop after success
     } else {
