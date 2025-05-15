@@ -1,14 +1,11 @@
 # 🏥 Medical Record Management System
 
-A desktop-based Medical Record Management System tailored for clinics, schools, and small healthcare institutions. Featuring a modern Qt-based interface and a XAMPP-powered MySQL database, it enables efficient and secure handling of patient medical data.
+A desktop-based Medical Record Management System tailored for clinics, and small healthcare institutions. Featuring a modern Qt-based interface and a XAMPP-powered MySQL database, it enables efficient and secure handling of patient medical data.
 
 ## 📌 Features
 
 - **👤 Patient Information Management**  
   Add, edit, delete, and search patient records with detailed personal and medical info.
-
-- **🩺 Medical Records Logging**  
-  Track diagnoses, treatments, prescriptions, and visit history.
 
 - **🔐 User Login System**  
   Secured login with role-based access (Admin/Staff).
@@ -32,10 +29,9 @@ A desktop-based Medical Record Management System tailored for clinics, schools, 
 ## 📸 Interface Highlights
 
 - Login screen with password validation
-- Patient registration and update forms
+- Patient registration and update for database
 - Medical records viewer with table listing
 - Smooth page transitions using stacked widgets
-- Buttons with icons and hover effects for better UX
 
 ## 🎨 Design
 
@@ -51,17 +47,13 @@ The system has a clean and user-friendly design with the following elements:
   A table-style view for medical history, prescriptions, diagnoses, and treatment records, with the ability to search and filter through data.
 
 - **Smooth Transitions**  
-  Page transitions are handled by Qt's stacked widgets for a seamless user experience. 
-
-- **Modern UI Elements**  
-  Buttons with icons, hover effects, and a responsive layout to enhance usability.
-
+  Page transitions are handled by Qt's stacked widgets for a seamless user l
 ## 💡 Future Enhancements
 
 - Export records to PDF or Excel
 - Add analytics dashboard
-- Enable cloud syncing
-- Add role-specific permissions
+- Add automatic patient ID generator
+- Add account creation
 
 ## 👤 Developed By
 
