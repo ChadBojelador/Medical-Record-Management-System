@@ -28,7 +28,7 @@ BstNode* bst::insertHelper(BstNode* node, BstNode* newNode) {
 
 void bst::insert(BstNode* newNode) {
     if (!newNode) return;
-    newNode->key = newNode->id; // Ensure key is set before insertion
+    newNode->key = newNode->id;
     root = insertHelper(root, newNode);
 }
 
@@ -64,7 +64,7 @@ BstNode* bst::deleteHelper(BstNode* node, const QString& key)
     else if (key > node->id)
         node->right = deleteHelper(node->right, key);
     else {
-        // Node with one or no child
+
         if (!node->left) {
             BstNode* temp = node->right;
             delete node;
@@ -76,7 +76,7 @@ BstNode* bst::deleteHelper(BstNode* node, const QString& key)
             return temp;
         }
 
-        // Node with two children: Copy all data from successor
+
         BstNode* temp = minValueNode(node->right);
         // Copy all data fields
         node->id = temp->id;
@@ -102,7 +102,7 @@ BstNode* bst::deleteHelper(BstNode* node, const QString& key)
         node->firstName = temp->firstName;
         node->middleName = temp->middleName;
 
-        // Delete the inorder successor
+
         node->right = deleteHelper(node->right, temp->id);
     }
     return node;

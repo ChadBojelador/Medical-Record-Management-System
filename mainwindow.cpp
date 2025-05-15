@@ -255,7 +255,7 @@ void MainWindow::on_pushButton_2_clicked()
             return;
         }
 
-        // Update BST node
+
         existingNode->id = id;
         existingNode->surname = surname;
         existingNode->firstName = firstName;
@@ -301,7 +301,7 @@ void MainWindow::on_pushButton_2_clicked()
         query.addBindValue(dateAdmitted);
         query.addBindValue(admin);
         query.addBindValue(selectedGender);
-        query.addBindValue(currentEditId);  // Original ID for WHERE clause
+        query.addBindValue(currentEditId);
 
         if (query.exec()) {
             QMessageBox::information(this, "Success", "Record updated!");
@@ -318,7 +318,7 @@ void MainWindow::on_pushButton_2_clicked()
                  delete newNode;
                  return;
              }
-    tree.insert(newNode); // Insert using bst method
+    tree.insert(newNode);
 
     QSqlQuery query;
     query.prepare("INSERT INTO finaldb (ID, NAME, SUFFIX, AGE, BIRTHDATE, BLOOD_TYPE, CIVIL_STATUS, BIRTHPLACE, CONTACT_NO, RELIGION, NATIONALITY, ADDRESS, ROOM, TIME_ADMITTED, LEVEL_OF_CARE, DATE_ADMITTED, ADMIN_NAME, SEX) "
@@ -360,15 +360,15 @@ void MainWindow::on_pushButton_2_clicked()
        ui->lineEditAdmin->clear();
           ui->lineEditContact->clear();
         ui->lineEditAddress->clear();
-        return; // ✅ Suggestion 1: stop after success
+        return;
     } else {
-        // Rollback BST insertion if database fails
+
         tree.deleteNode(newNode->id);
         delete newNode;
         QMessageBox::critical(this, "Error", "Insert failed: " + query.lastError().text());
     }
 }
-// Refresh data in both cases
+
 reloadDatabase();
 if(ui->stackedWidget->currentIndex() == 3) {
     on_list_clicked();
@@ -379,15 +379,15 @@ void MainWindow::on_list_clicked()
     ui->stackedWidget->setCurrentIndex(3);
     db.open();
 
-    // Fetch data sorted alphabetically by NAME (A-Z)
+
     QSqlQuery query(db);
     query.prepare("SELECT * FROM finaldb ORDER BY NAME ASC");
 
     if (query.exec()) {
-        ui->tableWidget->setRowCount(0); // Clear existing data
+        ui->tableWidget->setRowCount(0);
         int row = 0;
 
-        // Disable sorting while populating to prevent interference
+
         ui->tableWidget->setSortingEnabled(false);
 
         while (query.next()) {
@@ -398,7 +398,6 @@ void MainWindow::on_list_clicked()
             row++;
         }
 
-        // Force ascending sort on the NAME column (column index 1)
         ui->tableWidget->setSortingEnabled(true);
         ui->tableWidget->horizontalHeader()->setSortIndicator(1, Qt::AscendingOrder);
         ui->tableWidget->sortByColumn(1, Qt::AscendingOrder);
@@ -435,13 +434,13 @@ void MainWindow::on_searchTable_clicked()
         return;
     }
 
-    // Set column count to match your data fields (18 columns)
+
     ui->tableWidget->setColumnCount(18);
     ui->tableWidget->setRowCount(results.size());
 
     for (int i = 0; i < results.size(); ++i) {
         BstNode* node = results[i];
-        int col = 0;  // Initialize column counter for each row
+        int col = 0;
 
         ui->tableWidget->setItem(i, col++, new QTableWidgetItem(node->id));
         ui->tableWidget->setItem(i, col++, new QTableWidgetItem(node->fullName));
@@ -527,22 +526,22 @@ void MainWindow::loadDatabaseIntoBST()
 
 void MainWindow::reloadDatabase()
 {
-    tree.clear();  // Use your actual member name
+    tree.clear();
     loadDatabaseIntoBST();
 };
 
 void MainWindow::on_refreshButton_clicked()
 {
-    // Clear existing data
+
     tree.clear();
     ui->tableWidget->clearContents();
     ui->tableWidget->setRowCount(0);
 
-    // Reload from database
+
     loadDatabaseIntoBST();
 
-    // Refresh the table view if we're on the list page
-    if(ui->stackedWidget->currentIndex() == 3) {  // Assuming 3 is your table page index
+
+    if(ui->stackedWidget->currentIndex() == 3) {
         on_list_clicked();
     }
 
@@ -550,18 +549,18 @@ void MainWindow::on_refreshButton_clicked()
 
 void MainWindow::on_deleteButton_clicked()
 {
-    // Get selected row
+
     QModelIndexList selected = ui->tableWidget->selectionModel()->selectedRows();
     if (selected.isEmpty()) {
         QMessageBox::warning(this, "Error", "Please select a record to delete.");
         return;
     }
 
-    // Get ID from first column of selected row
+
     int row = selected.first().row();
     QString id = ui->tableWidget->item(row, 0)->text();
 
-    // Confirm deletion
+
     QMessageBox::StandardButton reply;
     reply = QMessageBox::question(this, "Confirm Delete",
                                   "Delete record for ID: " + id + "?",
@@ -569,7 +568,7 @@ void MainWindow::on_deleteButton_clicked()
 
     if (reply != QMessageBox::Yes) return;
 
-    // Delete from database
+
     QSqlQuery query;
     query.prepare("DELETE FROM finaldb WHERE ID = ?");
     query.addBindValue(id);
@@ -580,12 +579,12 @@ void MainWindow::on_deleteButton_clicked()
         return;
     }
 
-    // Delete from BST
-    tree.deleteNode(id);  // Implement this in BST class
 
-    // Refresh UI
-    if (ui->stackedWidget->currentIndex() == 3) {  // If on table view
-        on_list_clicked();  // Refresh table
+    tree.deleteNode(id);
+
+
+    if (ui->stackedWidget->currentIndex() == 3) {
+        on_list_clicked();
     }
 
     QMessageBox::information(this, "Success", "Record deleted successfully.");
@@ -594,15 +593,15 @@ void MainWindow::on_deleteButton_clicked()
 
 void MainWindow::showPatientData(const QString& patientID)
 {
-    // Search for the specific patient
+
     QList<BstNode*> results = tree.searchMultiple(patientID);
 
-    // Clear and prepare table
+
     ui->tableWidget->setRowCount(0);
     ui->tableWidget->setColumnCount(18);
 
     if(!results.isEmpty()) {
-        // Find exact match
+
         BstNode* patientNode = nullptr;
         foreach(BstNode* node, results) {
             if(node->id == patientID) {
@@ -612,12 +611,12 @@ void MainWindow::showPatientData(const QString& patientID)
         }
 
         if(patientNode) {
-            // Make table read-only
+
             ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
             ui->tableWidget->setRowCount(1);
             int col = 0;
 
-            // Create non-editable items
+
             auto createReadOnlyItem = [](const QString& text) {
                 QTableWidgetItem* item = new QTableWidgetItem(text);
                 item->setFlags(item->flags() ^ Qt::ItemIsEditable);
@@ -665,7 +664,7 @@ void MainWindow::on_editButton_clicked()
         return;
     }
 
-    // Populate all UI fields
+
     ui->lineEditID2->setText(node->id);
     ui->lineEditSurname->setText(node->surname);
     ui->lineEditFirst->setText(node->firstName);
@@ -681,40 +680,34 @@ void MainWindow::on_editButton_clicked()
     ui->lineEditContact->setText(node->contact);
     ui->lineEditAddress->setText(node->address);
 
-    // Handle numeric fields
+
     bool ageOk;
     int age = node->ageStr.toInt(&ageOk);
     if (ageOk) ui->age->setValue(age);
 
-    // Handle gender radio buttons
     if (node->selectedGender == "Male") {
         ui->radioMale->setChecked(true);
     } else if (node->selectedGender == "Female") {
         ui->radioFemale->setChecked(true);
     }
 
-    // Handle combobox selections
+
     ui->suffix->setCurrentText(node->suffix);
     ui->bloodType->setCurrentText(node->bloodType);
     ui->civilStatus->setCurrentText(node->civilStatus);
 
-    // Handle date fields
     QDate birthDate = QDate::fromString(node->dateStr, "yyyy-MM-dd");
     if (birthDate.isValid()) {
         ui->dateEdit->setDate(birthDate);
     }
 
-    // Handle checkboxes (assuming consent1/consent2 are checkboxes)
-    // You'll need to add these fields to your BstNode if needed
 
-    // Set edit mode
     isEditing = true;
     currentEditId = id;
     ui->lineEditID2->setReadOnly(true);
-    ui->stackedWidget->setCurrentIndex(1);  // Switch to edit form
+    ui->stackedWidget->setCurrentIndex(1);
 
-    // Scroll to top of form
-    // Scroll to top of form
+
     QScrollArea* scrollArea = qobject_cast<QScrollArea*>(ui->stackedWidget->currentWidget());
     if (scrollArea && scrollArea->verticalScrollBar()) {
         scrollArea->verticalScrollBar()->setValue(0);
@@ -733,7 +726,7 @@ void MainWindow::on_editButton_clicked()
         BstNode* node = tree.search(patientId);
         if (!node) return;
 
-        // Populate all fields
+
         ui->lineEditID2->setText(node->id);
         ui->lineEditSurname->setText(node->surname);
         ui->lineEditFirst->setText(node->firstName);
@@ -750,21 +743,21 @@ void MainWindow::on_editButton_clicked()
         ui->lineEditAddress->setText(node->address);
         ui->age->setValue(node->ageStr.toInt());
 
-        // Set radio buttons
+
         if (node->selectedGender == "Male") ui->radioMale->setChecked(true);
         else if (node->selectedGender == "Female") ui->radioFemale->setChecked(true);
 
-        // Set comboboxes
+
         ui->suffix->setCurrentText(node->suffix);
         ui->bloodType->setCurrentText(node->bloodType);
         ui->civilStatus->setCurrentText(node->civilStatus);
 
-        // Set date
+
         QDate birthDate = QDate::fromString(node->dateStr, "yyyy-MM-dd");
         ui->dateEdit->setDate(birthDate);
 
-        // Switch to edit form
-        ui->stackedWidget->setCurrentIndex(1);  // Assuming 1 is your input form
+
+        ui->stackedWidget->setCurrentIndex(1);
         isEditing = true;
         currentEditId = patientId;
         ui->lineEditID2->setReadOnly(true);

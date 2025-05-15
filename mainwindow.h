@@ -60,4 +60,4 @@ void showPatientData(const QString& patientID);
     void showEditFormWithData(const QString& patientId);
 
 };
-#endif // MAINWINDOW_H
+#endif
